@@ -1,0 +1,68 @@
+form#match_input
+{
+    margin: auto;
+    margin-bottom: 250px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    padding: 20px;
+    width: 400px;
+    height: 150px;
+    color: black;
+}
+
+form#match_input ol li
+{
+    background: rgba(255,255,255,.3);
+    color: darkgrey;
+    border-color: #e3ebc3;
+    border-color: rgba(255,255,255,.6);
+    border-style: solid;
+    border-width: 2px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    line-height: 30px;
+    list-style: none;
+    padding: 5px 10px;
+    margin-bottom: 2px;
+}
+ 
+form#match_input ol ol li
+{
+    background: none;
+    border: none;
+}
+
+form#match_input textarea
+{
+    border: none;
+    outline: none;
+    width: 200px;
+}
+ 
+form#match_input input:not([type=submit]):focus,
+ 
+form#match_input textarea:focus
+
+form#match_input button 
+{
+    background: #0c191c;
+    border: none;
+    float:right;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -khtml-border-radius: 10px;
+    border-radius: 10px;
+    color: #ffffff;
+    display: inline;
+    letter-spacing: 1px;
+    margin: 0px 10px 0px 0px;
+    padding: px 0px;
+    text-shadow: 0 1px 1px #000000;
+}
+ 
+form#match_input button:hover
+{
+    background: #1e2506;
+    cursor: pointer;
+    color: #ffffff;
+}

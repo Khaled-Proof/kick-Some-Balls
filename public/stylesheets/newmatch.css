@@ -1,0 +1,135 @@
+.show-modal{
+    color: #fff;
+    background: #222222;
+    font-size: 18px;
+    font-weight: 600;
+    text-transform: capitalize;
+    padding: 10px 15px;
+    margin: 0px auto 0;
+    border: none;
+    outline: none;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    display: block;
+    transition: all 0.3s ease 0s;
+}
+
+.modal-content .close{
+    color: darkgrey;
+    font-size: 25px;
+    font-weight: 400;
+    text-shadow: none;
+    line-height: 27px;
+    height: 25px;
+    width: 25px;
+    border-radius: 50%;
+    overflow: hidden;
+    opacity: 1;
+    position: absolute;
+    left: auto;
+    right: 8px;
+    top: 8px;
+    z-index: 1;
+    transition: all 0.3s;
+}
+
+.modal-content .close:hover{
+    color: #3a4341;
+    box-shadow: 0 0 5px rgba(0,0,0,0.5);
+}
+.modal-content{
+    background: #222222;
+}
+.close:focus{ outline: none; }
+
+.modal-body{ 
+    padding: 60px 40px 40px !important; 
+    height: 800px;
+}
+.modal-body .title{
+    color: white;
+    background: #222222;
+    font-size: 33px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    margin: 0 0 10px;
+}
+
+.versus {
+  font-size: 70px;
+  position: absolute;
+/*top right bottom left*/
+  margin: 65px 10px 10px 230px;
+}
+
+.inner-dropzones {
+  float: left;
+  box-sizing: border-box;
+  height:90px;
+  width: 200px;
+  left: 10px;
+  color: darkgrey;
+  width: 150px;
+  padding: 20px;
+  border: 3px solid;
+}
+
+.team-container {
+  padding: 10px;
+/*  border: 3px solid #fff;*/
+}
+
+.team-children {
+  width: 50%;
+  float: left;
+  padding: 10px;
+  padding-left: 50px;
+/*  border: 2px solid red;*/
+}
+
+.result {
+  font-size: 30px;
+  color: black;
+  width: 50px;
+  text-align: center;
+}
+
+.dropzone {
+  color: darkgrey;
+  background-color: #3a4341;
+  border: dashed 4px transparent;
+  border-radius: 4px;
+  margin: 10px 0px 10px 10px;
+  padding: 10px;
+  transition: background-color 0.3s;
+}
+
+.drop-active {
+  border-color: #aaa;
+}
+
+.drop-target {
+  background-color: #2b2b2b;
+  border-color: #fff;
+  border-style: solid;
+}
+
+.drag-drop {
+  display: inline-block;
+  min-width: 20px;
+  padding: 2em 0.5em;
+  margin: 1rem 0 0 1rem;
+
+  color: #fff;
+  background-color: #29e;
+  border: solid 2px #fff;
+
+  touch-action: none;
+  transform: translate(0px, 0px);
+  transition: background-color 0.3s;
+}
+
+.drag-drop.can-drop {
+  color: #000;
+  background-color: #4e4;
+}
+

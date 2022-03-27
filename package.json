@@ -1,0 +1,26 @@
+{
+  "name": "ni9ty-express",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www"
+  },
+  "dependencies": {
+    "chart.js": "^3.7.1",
+    "chartjs-node-canvas": "^4.1.6",
+    "cookie-parser": "~1.4.4",
+    "debug": "~2.6.9",
+    "express": "~4.16.1",
+    "express-handlebars": "^6.0.3",
+    "express-session": "^1.17.2",
+    "express-validator": "5.3.1",
+    "handlebars": "^4.7.7",
+    "http-errors": "~1.6.3",
+    "interact.js": "^1.2.8",
+    "jade": "~1.11.0",
+    "jade-bootstrap": "^1.0.14",
+    "mongoose": "^6.2.7",
+    "morgan": "~1.9.1",
+    "validator": "^13.7.0"
+  }
+}

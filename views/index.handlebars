@@ -1,0 +1,202 @@
+<head>
+    <meta charset="UTF-8"/>
+    <title>{{title}}</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
+
+</head>
+
+<img src="http://localhost:9000/images/logo_white_150px.png" width="80" height="80"  >
+</a>
+       <i style="color: #3dd5f3">Welcome to the {{title}}</i>
+<br>
+         </img>
+<br>
+
+<div>
+
+
+    <div class="card" >
+
+        <div class="card-body" >
+    <div class="row" style="background-image:url('http://localhost:9000/images/tisch.png');background-repeat: no-repeat;">
+        <div class="col-sm">
+            <h3>New Match</h3>
+
+
+            <form action="/insert" method="post" >
+
+                <img src="http://localhost:9000/images/figur.jpeg" width="100" height="100"  alt="">
+
+                <h3 style="color: #3dd5f3">Team 1</h3>
+
+                <div class="row">
+                    <br>
+                    <div class="col-sm">
+                        <div class="form-group" >
+                            <label>
+                                <input list="Player1" name="Player1" placeholder="Player1" style="background-color: #2c3034" class="form-control form-rounded"/></label>
+                            <datalist id="Player1">
+                                <option value="giZen">giZen
+                                <option value="Khaled">Khaled
+                                <option value="Nico">Nico
+                                <option value="David">David
+                                <option value="Mattias">Mattias
+                                <option value="Phili chili">Phili chili
+                                <option value="Harle">Anderes
+                                <option value="Gast">Gast
+                            </datalist>
+                        </div></div>
+
+                    <div class="col-sm">
+                        <div class="form-group">
+                            <label>
+                                <input list="Player2" name="Player2" placeholder="Player2" style="background-color: #2c3034" class="form-control form-rounded" /></label>
+                            <datalist id="Player2">
+                                <option value="giZen">giZen
+                                <option value="Khaled">Khaled
+                                <option value="Nico">Nico
+                                <option value="David">David
+                                <option value="Mattias">Mattias
+                                <option value="Phili chili">Phili chili
+                                <option value="Harle">Anderes
+                                <option value="Gast">Gast
+                            </datalist>
+                        </div>
+                    </div></div>
+                <br>
+                <img src="http://localhost:9000/images/figur.jpeg" width="100" height="100"  alt="">
+
+                <h3 style="color: #3dd5f3">Team 2</h3>
+                <div class="row">
+                    <br>
+                    <div class="col-sm">
+
+                        <div class="form-group" >
+                            <label>
+                                <input list="Player3" name="Player3" placeholder="Player3"  style="background-color: #2c3034" class="form-control form-rounded"/></label>
+                            <datalist id="Player3">
+                                <option value="giZen">giZen
+                                <option value="Khaled">Khaled
+                                <option value="Nico">Nico
+                                <option value="David">David
+                                <option value="Mattias">Mattias
+                                <option value="Phili chili">Phili chili
+                                <option value="Harle">Anderes
+                                <option value="Gast">Gast
+                            </datalist>
+                        </div></div>
+                    <div class="col-sm">
+                        <div class="form-group">
+                            <label>
+                                <input list="Player4" name="Player4" placeholder="Player4" style="background-color: #2c3034" class="form-control form-rounded"/></label>
+                            <datalist id="Player4">
+                                <option value="giZen">giZen
+                                <option value="Khaled">Khaled
+                                <option value="Nico">Nico
+                                <option value="David">David
+                                <option value="Mattias">Mattias
+                                <option value="Phili chili">Phili chili
+                                <option value="Harle">Anderes
+                                <option value="Gast">Gast
+                            </datalist></div>
+                    </div></div>
+                <br>
+                <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-bookmark-star" viewBox="0 0 16 16" style="color: gold">
+                    <path d="M7.84 4.1a.178.178 0 0 1 .32 0l.634 1.285a.178.178 0 0 0 .134.098l1.42.206c.145.021.204.2.098.303L9.42 6.993a.178.178 0 0 0-.051.158l.242 1.414a.178.178 0 0 1-.258.187l-1.27-.668a.178.178 0 0 0-.165 0l-1.27.668a.178.178 0 0 1-.257-.187l.242-1.414a.178.178 0 0 0-.05-.158l-1.03-1.001a.178.178 0 0 1 .098-.303l1.42-.206a.178.178 0 0 0 .134-.098L7.84 4.1z"/>
+                    <path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5V2zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1H4z"/>
+                </svg>
+                <br>
+                <br>
+                <div class="row">
+                    <div class="col-sm">
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="team1" placeholder="Team1-Points" name="team1" style="background-color: #2c3034" class="form-control form-rounded">
+                        </div></div>
+                    <div class="col-sm">
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="team2" placeholder="Team2-Points" name="team2" style="background-color: #2c3034" class="form-control form-rounded">
+                        </div>
+                    </div></div>
+                <br>
+                <button type="submit" class="btn btn-primary">insert data</button>
+                <br>
+            </form>
+
+
+        </div>
+        <div class="col-sm">
+            <h3>Show data</h3>
+            <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-bookmark-star" viewBox="0 0 16 16" style="color: gold">
+                <path d="M2.5.5A.5.5 0 0 1 3 0h10a.5.5 0 0 1 .5.5c0 .538-.012 1.05-.034 1.536a3 3 0 1 1-1.133 5.89c-.79 1.865-1.878 2.777-2.833 3.011v2.173l1.425.356c.194.048.377.135.537.255L13.3 15.1a.5.5 0 0 1-.3.9H3a.5.5 0 0 1-.3-.9l1.838-1.379c.16-.12.343-.207.537-.255L6.5 13.11v-2.173c-.955-.234-2.043-1.146-2.833-3.012a3 3 0 1 1-1.132-5.89A33.076 33.076 0 0 1 2.5.5zm.099 2.54a2 2 0 0 0 .72 3.935c-.333-1.05-.588-2.346-.72-3.935zm10.083 3.935a2 2 0 0 0 .72-3.935c-.133 1.59-.388 2.885-.72 3.935z"/>
+            </svg>
+            <a href="/get-data"  >Show data</a>
+
+                {{#each item}}
+                    <article class="alert alert-primary" role="alert">
+                        <div>ID: {{this._id}} </div>
+                        <div>Matchdaty: {{this.time}} </div>
+                        <div>{{this.Player1}} ,{{this.Player2}} X {{this.Player3}} ,{{this.Player4}} ={{this.team1}}-{{this.team2}}</div>
+                        <a href="http://localhost:9000/update/{{this._id}}" class="btn btn-primary">Update</a>
+                        <form action="/delete" method="post">
+                            <input name="id" value={{this._id}} hidden>
+                            <button type="submit" class="btn btn-primary">DELETE</button>
+                        </form>
+                    </article>
+                {{/each}}
+
+            </div>
+
+    </div>
+</div>
+    </div>
+
+    <!-- End of the first Sectio -->
+
+
+</div>
+
+
+    <canvas id="myChart" width="400" height="400"></canvas>
+    <script>
+        const ctx = document.getElementById('myChart').getContext('2d');
+        const myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Khaled', 'Gizen', 'David', 'Nico', 'Mattias', 'Phili chili'],
+                datasets: [{
+                    label: '# Winners Points',
+                    data: [12, 19, 3, 5, 2, 3],
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)',
+                        'rgba(153, 102, 255, 1)',
+                        'rgba(255, 159, 64, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
+
+
+</div>
+
