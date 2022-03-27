@@ -4,13 +4,12 @@ a very simple Tool to document soccer table. the tool still very primitive but u
 
 #requirements
 
-1-Mongoose / Mongodb
-2-Expressjs
+#1-Mongoose / Mongodb
+#2-Expressjs
 
+#How to install:
 
-How to install:
-
-1-npm install
-2-npm start
+#1-npm install
+#2-npm start
 
 
