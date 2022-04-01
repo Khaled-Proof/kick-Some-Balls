@@ -14,6 +14,7 @@ const inetract = require('interact.js');
 
 //const url = 'mongodb://localhost:27017/test'
 const mongoose = require("mongoose");
+const Handlebars = require("handlebars");
 mongoose.connect('mongodb://localhost:27017/test');
 const Schema =mongoose.Schema;
 
@@ -48,25 +49,23 @@ router.get('/get-data', function (req, res, next) {
  // in the line belwo you can write the condtions of the data you wanna retrive in dthe finde funtion
 userdata.find().lean()
     .then(function (doc){
-      res.render('index',{item:doc});
+      res.render('index',{item:doc,title: 'giZen&Khaled Kicker Project'});
     });
 });
-
-
-
 
 router.post('/insert', function(req, res, next) {
     const id = req.body.id;
     const  d = new Date();
     const datetime= d.getDate() + '/' + (d.getMonth()+1) + '/' + d.getFullYear() + '-' + d.getHours() + '-' + d.getMinutes() + '-' + d.getSeconds();
-  const item = {
+
+    const item = {
     Player1: req.body.Player1,
     Player2: req.body.Player2,
     Player3: req.body.Player3,
     Player4: req.body.Player4,
       time:datetime,
     team1: req.body.team1,
-    team2: req.body.team2
+    team2: req.body.team2,
   };
 
 const data=new userdata(item);
@@ -105,9 +104,37 @@ router.post('/delete', function(req, res, next) {
 });
 
 router.get('/update/:id',function (req,res,next){
-  res.render('update',{output:req.params.id});
+  res.render('update',{output:req.params.id,title: 'giZen&Khaled Kicker Project'});
 });
 
+router.get('/charts/:Player2',async function (req, res, next) {
+    const Handlebars = require('handlebars');
+    Handlebars.registerHelper("inc", function (value, options) {
+        return parseInt(value) + 1;
+    });
+    const name = req.params.Player2;
+    const count = await userdata.countDocuments({$or: [{Player1: name}, {Player2: name}, {Player3: name}, {Player4: name}]});
+
+    Handlebars.registerHelper('ifCond', function(v1, v2, options) {
+        if(v1 === v2) {
+            return options.fn(this);
+        }
+        return options.inverse(this);
+    });
+    Handlebars.registerHelper('ifCond1', function(v1, v2, options) {
+        if(v1> v2) {
+            return options.fn(this);
+        }
+        return options.inverse(this);
+    });
+
+    userdata.find({$or: [{Player1: name}, {Player2: name}, {Player3: name}, {Player4: name}]}).lean()
+
+        .then(function (doc) {
+            res.render('charts', {item: doc, title: 'giZen&Khaled Kicker Project',count1:count, condition: true,test1:name, array: [1, 2, 3, 4]});
+        });
+
+});
 
 /* GET home page. Data retive with mongodb
 
