@@ -7,9 +7,10 @@
 
 </head>
 
-<img src="http://localhost:9000/images/logo_white_150px.png" width="80" height="80"  >
+<a href="http://localhost:9000/">
+    <img src="http://localhost:9000/images/logo_white_150px.png" width="80" height="80"  >
 </a>
-       <i style="color: #3dd5f3">Welcome to the {{title}}</i>
+<i style="color: #3dd5f3">Welcome to the {{title}}</i>
 <br>
          </img>
 <br>
@@ -24,7 +25,7 @@
         <div class="col-sm">
             <h3>New Match</h3>
 
-
+<br>
             <form action="/insert" method="post" >
 
                 <img src="http://localhost:9000/images/figur.jpeg" width="100" height="100"  alt="">
@@ -127,26 +128,37 @@
 
         </div>
         <div class="col-sm">
-            <h3>Show data</h3>
+
+            <h3>Show Matches history</h3>
+            <br>
             <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-bookmark-star" viewBox="0 0 16 16" style="color: gold">
                 <path d="M2.5.5A.5.5 0 0 1 3 0h10a.5.5 0 0 1 .5.5c0 .538-.012 1.05-.034 1.536a3 3 0 1 1-1.133 5.89c-.79 1.865-1.878 2.777-2.833 3.011v2.173l1.425.356c.194.048.377.135.537.255L13.3 15.1a.5.5 0 0 1-.3.9H3a.5.5 0 0 1-.3-.9l1.838-1.379c.16-.12.343-.207.537-.255L6.5 13.11v-2.173c-.955-.234-2.043-1.146-2.833-3.012a3 3 0 1 1-1.132-5.89A33.076 33.076 0 0 1 2.5.5zm.099 2.54a2 2 0 0 0 .72 3.935c-.333-1.05-.588-2.346-.72-3.935zm10.083 3.935a2 2 0 0 0 .72-3.935c-.133 1.59-.388 2.885-.72 3.935z"/>
             </svg>
+
             <a href="/get-data"  >Show data</a>
 
                 {{#each item}}
                     <article class="alert alert-primary" role="alert">
                         <div>ID: {{this._id}} </div>
                         <div>Matchdaty: {{this.time}} </div>
-                        <div>{{this.Player1}} ,{{this.Player2}} X {{this.Player3}} ,{{this.Player4}} ={{this.team1}}-{{this.team2}}</div>
+                        <div><a href="http://localhost:9000/charts/{{this.Player1}}" >{{this.Player1}}</a> ,<a href="http://localhost:9000/charts/{{this.Player2}}" >{{this.Player2}}</a> X <a href="http://localhost:9000/charts/{{this.Player3}}" >{{this.Player3}}</a> ,<a href="http://localhost:9000/charts/{{this.Player4}}" >{{this.Player4}}</a> ={{this.team1}}-{{this.team2}}</div>
+                        <div class="row">
+                            <div class="col">
                         <a href="http://localhost:9000/update/{{this._id}}" class="btn btn-primary">Update</a>
+                            </div>
                         <form action="/delete" method="post">
                             <input name="id" value={{this._id}} hidden>
                             <button type="submit" class="btn btn-primary">DELETE</button>
                         </form>
+                        </div>
                     </article>
                 {{/each}}
 
             </div>
+
+
+
+    </div>
 
     </div>
 </div>
@@ -157,45 +169,6 @@
 
 </div>
 
-
-    <canvas id="myChart" width="400" height="400"></canvas>
-    <script>
-        const ctx = document.getElementById('myChart').getContext('2d');
-        const myChart = new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: ['Khaled', 'Gizen', 'David', 'Nico', 'Mattias', 'Phili chili'],
-                datasets: [{
-                    label: '# Winners Points',
-                    data: [12, 19, 3, 5, 2, 3],
-                    backgroundColor: [
-                        'rgba(255, 99, 132, 0.2)',
-                        'rgba(54, 162, 235, 0.2)',
-                        'rgba(255, 206, 86, 0.2)',
-                        'rgba(75, 192, 192, 0.2)',
-                        'rgba(153, 102, 255, 0.2)',
-                        'rgba(255, 159, 64, 0.2)'
-                    ],
-                    borderColor: [
-                        'rgba(255, 99, 132, 1)',
-                        'rgba(54, 162, 235, 1)',
-                        'rgba(255, 206, 86, 1)',
-                        'rgba(75, 192, 192, 1)',
-                        'rgba(153, 102, 255, 1)',
-                        'rgba(255, 159, 64, 1)'
-                    ],
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true
-                    }
-                }
-            }
-        });
-    </script>
 
 
 </div>
