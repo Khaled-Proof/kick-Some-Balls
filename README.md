@@ -24,4 +24,4 @@ https://user-images.githubusercontent.com/25641137/161309964-f74abb36-49ff-4427-
 
 Some-Charts and stats
 ![personal-charts](https://user-images.githubusercontent.com/25641137/161641003-14fcbf58-bfb3-4871-a3db-7fea4c6dfb21.png)
-![personal-charts](https://user-images.githubusercontent.com/25641137/161641011-2ab0df56-926f-4684-9a13-bcd27074b151.png)
+![games-charts](https://user-images.githubusercontent.com/25641137/161641078-70ec74fc-bf91-4ced-b17d-fd950d161535.png)
