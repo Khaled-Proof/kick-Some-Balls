@@ -22,3 +22,6 @@ How many Games each Player played and mark won games with green, lost with red.
 
 https://user-images.githubusercontent.com/25641137/161309964-f74abb36-49ff-4427-8f7d-00d54d3c4713.mov
 
+Some-Charts and stats
+![personal-charts](https://user-images.githubusercontent.com/25641137/161641003-14fcbf58-bfb3-4871-a3db-7fea4c6dfb21.png)
+![personal-charts](https://user-images.githubusercontent.com/25641137/161641011-2ab0df56-926f-4684-9a13-bcd27074b151.png)
