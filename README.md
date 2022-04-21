@@ -14,6 +14,8 @@ a very simple Tool to document soccer table. the tool still very primitive but u
 
 2-npm start
 
+3- open the application on port 9000. localhost:9000
+
 Added Some Tracking featuers:
 
 How many Games each Player played and mark won games with green, lost with red.
