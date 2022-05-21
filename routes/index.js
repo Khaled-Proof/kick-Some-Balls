@@ -133,12 +133,12 @@ router.get('/charts/:Player2',async function (req, res, next) {
 /* GET home page. Data retive with mongodb
 
 router.get('/index', function(req, res, next) {
-  res.render('index',{ title: 'giZen&Khaled Kicker Project',condition:true,array:[1,2,3,4] } );
+  res.render('index',{ title: 'gizn&Khaled Kicker Project',condition:true,array:[1,2,3,4] } );
 
 
 });
 router.get('/', function(req, res, next) {
-  res.render('index',{ title: 'giZen&Khaled Kicker Project',condition:true,array:[1,2,3,4] } );
+  res.render('index',{ title: 'gizn&Khaled Kicker Project',condition:true,array:[1,2,3,4] } );
 
 
 });
@@ -154,7 +154,7 @@ const resultarray =[];
           resultarray.push(doc);
         },function (){
           // MongoClient.close(); should chck the connetion closing again
-          res.render('index',{items:resultarray,title: 'giZen&Khaled Kicker Project',condition:true,array:[1,2,3,4] } );
+          res.render('index',{items:resultarray,title: 'gizn&Khaled Kicker Project',condition:true,array:[1,2,3,4] } );
         });
       });
     });
