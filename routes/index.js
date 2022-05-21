@@ -125,7 +125,7 @@ router.get('/charts/:Player2',async function (req, res, next) {
     userdata.find({$or: [{Player1: name}, {Player2: name}, {Player3: name}, {Player4: name}]}).lean()
 
         .then(function (doc) {
-            res.render('charts', {item: doc, title: 'giZen&Khaled Kicker Project',count1:count, condition: true,test1:name, array: [1, 2, 3, 4]});
+            res.render('charts', {item: doc, title: 'giZn&Khaled Kicker Project',count1:count, condition: true,test1:name, array: [1, 2, 3, 4]});
         });
 
 });
