@@ -8,14 +8,11 @@ const assert = require('assert');
 //const mongoid = require('mongodb').ObjectId;
 const chart =require('chart.js');
 const {CanvasRenderService} = require('chartjs-node-canvas');
-//const db = require('monk')('localhost:27017/test')
 //const userdata = db.get('user-data');
-const inetract = require('interact.js');
-
-//const url = 'mongodb://localhost:27017/test'
+const interact = require('interactjs');
 const mongoose = require("mongoose");
 const Handlebars = require("handlebars");
-mongoose.connect('mongodb://localhost:27017/test');
+mongoose.connect('mongodb://tsgd:27017/tsgd');
 const Schema =mongoose.Schema;
 
 const userdataSchema = new Schema({
@@ -29,18 +26,15 @@ team2: {type:String},
 },{collection:'user-data'});
 const userdata=mongoose.model('Userdata',userdataSchema);
 
-
-
-
 //Data retrive with mongoose for this you do not need mongodb
 router.get('/index', function(req, res, next) {
 
-  res.render('index',{ title: 'giZen&Khaled Kicker Project',condition:true,array:[1,2,3,4] } );
+  res.render('index',{ title: 'giZn&Khaled Kicker Project',condition:true,array:[1,2,3,4] } );
 
 
 });
 router.get('/', function(req, res, next) {
-  res.render('index',{ title: 'giZen&Khaled Kicker Project',condition:true,array:[1,2,3,4] } );
+  res.render('index',{ title: 'giZn&Khaled Kicker Project',condition:true,array:[1,2,3,4] } );
 
 
 });
@@ -49,7 +43,7 @@ router.get('/get-data', function (req, res, next) {
  // in the line belwo you can write the condtions of the data you wanna retrive in dthe finde funtion
 userdata.find().lean()
     .then(function (doc){
-      res.render('index',{item:doc,title: 'giZen&Khaled Kicker Project'});
+      res.render('index',{item:doc,title: 'giZn&Khaled Kicker Project'});
     });
 });
 
@@ -104,7 +98,7 @@ router.post('/delete', function(req, res, next) {
 });
 
 router.get('/update/:id',function (req,res,next){
-  res.render('update',{output:req.params.id,title: 'giZen&Khaled Kicker Project'});
+  res.render('update',{output:req.params.id,title: 'giZn&Khaled Kicker Project'});
 });
 
 router.get('/charts/:Player2',async function (req, res, next) {

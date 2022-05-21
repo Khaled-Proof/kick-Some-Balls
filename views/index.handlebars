@@ -7,8 +7,8 @@
 
 </head>
 
-<a href="http://localhost:9000/">
-    <img src="http://localhost:9000/images/logo_white_150px.png" width="80" height="80"  >
+<a href="http://tsgd:9000/">
+    <img src="images/logo_white_150px.png" width="80" height="80"  >
 </a>
 <i style="color: #3dd5f3">Welcome to the {{title}}</i>
 <br>
@@ -21,14 +21,14 @@
     <div class="card" >
 
         <div class="card-body" >
-    <div class="row" style="background-image:url('http://localhost:9000/images/tisch.png');background-repeat: no-repeat;">
+    <div class="row" style="background-image:url('images/tisch_1080_la.png');background-repeat: no-repeat;">
         <div class="col-sm">
             <h3>New Match</h3>
 
 <br>
             <form action="/insert" method="post" >
 
-                <img src="http://localhost:9000/images/figur.jpeg" width="100" height="100"  alt="">
+                <img src="images/ts_pro.png" width="100" height="100"  alt="">
 
                 <h3 style="color: #3dd5f3">Team 1</h3>
 
@@ -67,7 +67,7 @@
                         </div>
                     </div></div>
                 <br>
-                <img src="http://localhost:9000/images/figur.jpeg" width="100" height="100"  alt="">
+                <img src="images/ts_pro.png" width="100" height="100"  alt="">
 
                 <h3 style="color: #3dd5f3">Team 2</h3>
                 <div class="row">
@@ -141,10 +141,10 @@
                     <article class="alert alert-primary" role="alert">
                         <div>ID: {{this._id}} </div>
                         <div>Matchdaty: {{this.time}} </div>
-                        <div><a href="http://localhost:9000/charts/{{this.Player1}}" >{{this.Player1}}</a> ,<a href="http://localhost:9000/charts/{{this.Player2}}" >{{this.Player2}}</a> X <a href="http://localhost:9000/charts/{{this.Player3}}" >{{this.Player3}}</a> ,<a href="http://localhost:9000/charts/{{this.Player4}}" >{{this.Player4}}</a> ={{this.team1}}-{{this.team2}}</div>
+                        <div><a href="charts/{{this.Player1}}" >{{this.Player1}}</a> ,<a href="charts/{{this.Player2}}" >{{this.Player2}}</a> X <a href="charts/{{this.Player3}}" >{{this.Player3}}</a> ,<a href="charts/{{this.Player4}}" >{{this.Player4}}</a> ={{this.team1}}-{{this.team2}}</div>
                         <div class="row">
                             <div class="col">
-                        <a href="http://localhost:9000/update/{{this._id}}" class="btn btn-primary">Update</a>
+                        <a href="update/{{this._id}}" class="btn btn-primary">Update</a>
                             </div>
                         <form action="/delete" method="post">
                             <input name="id" value={{this._id}} hidden>
