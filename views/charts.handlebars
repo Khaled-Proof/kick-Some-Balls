@@ -2,108 +2,94 @@
     <meta charset="UTF-8"/>
     <title>{{title}}</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css">
-
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 
 </head>
 
 
 <a href="http://localhost:9000/">
     <img src="http://localhost:9000/images/logo_white_150px.png" width="80" height="80"  >
-</a>       <i style="color: #3dd5f3">Welcome to the {{title}}</i>
+</a>
+<i style="color: #3dd5f3">Welcome to the {{title}}</i>
 <br>
 </img>
 <br>
 
-<div>
-
-
-    <div class="card">
-        <div class="card-body">
-            <div class="row" style="background-image:url('http://localhost:9000/images/tisch.png');background-repeat: no-repeat">
-                <div class="col-sm">
-
-                    <h3>In this Page we will Show you some statistics about the Games:</h3>
-                    <h2> {{test1}} has Played {{count1}} Games.</h2>
+<nav class="navbar navbar-dark bg-dark">
+    <button><a href="/register"  >register a Player</a></button>
+    <button><a href="/charts"  >show games charts</a></button>
+</nav>
 
 
 
-                    {{#each item}}
-
-                        <article class="alert alert-primary" role="alert">
-                            Game: {{inc @index}}
-                            <div>Matchdaty: {{this.time}} </div>
-                                <div>{{this.Player1}} ,{{this.Player2}} X {{this.Player3}} ,{{this.Player4}} ={{this.team1}}-{{this.team2}}</div>
-
-                            {{#ifCond this.Player1  ../test1 }}
-                                {{#ifCond1 this.team1  this.team2}}
-                                    <div style="background-color: #20c997">Team1: {{this.team1}}  / Tema2: {{this.team2}}</div>
-                                {{/ifCond1}}
-                            {{/ifCond}}
-
-                            {{#ifCond this.Player1  ../test1 }}
-                                {{#ifCond1 this.team2 this.team1}}
-                                    <div style="background-color: red">Team1: {{this.team1}}   /  Tema2: {{this.team2}}</div>
-                                {{/ifCond1}}
-                            {{/ifCond}}
-
-                            {{#ifCond this.Player2  ../test1 }}
-                                {{#ifCond1 this.team1  this.team2}}
-                                    <div style="background-color: #20c997">Team1: {{this.team1}}    /  Tema2: {{this.team2}}</div>
-                                {{/ifCond1}}
-                            {{/ifCond}}
-
-                            {{#ifCond this.Player2  ../test1 }}
-                                {{#ifCond1 this.team2 this.team1}}
-                                    <div style="background-color: red">Team1: {{this.team1}}    /  Tema2: {{this.team2}}</div>
-                                {{/ifCond1}}
-                            {{/ifCond}}
-
-
-                            {{#ifCond this.Player3  ../test1 }}
-                                {{#ifCond1 this.team1  this.team2}}
-                                    <div style="background-color: red">Team1: {{this.team1}}    /  Tema2: {{this.team2}}</div>
-                                {{/ifCond1}}
-                            {{/ifCond}}
-
-                            {{#ifCond this.Player3  ../test1 }}
-                                {{#ifCond1 this.team2  this.team1}}
-                                    <div style="background-color: #20c997">Team1: {{this.team1}}    /  Tema2: {{this.team2}}</div>
-                                {{/ifCond1}}
-                            {{/ifCond}}
-
-                            {{#ifCond this.Player4  ../test1 }}
-                                {{#ifCond1 this.team1  this.team2}}
-                                    <div style="background-color: red">Team1: {{this.team1}}    /  Tema2: {{this.team2}}</div>
-                                {{/ifCond1}}
-                            {{/ifCond}}
-                            {{#ifCond this.Player4  ../test1 }}
-                                {{#ifCond1 this.team2  this.team1}}
-                                    <div style="background-color: #20c997">Team1: {{this.team1}}    /  Tema2: {{this.team2}}</div>
-                                {{/ifCond1}}
-                            {{/ifCond}}
-
-
-
-                        </article>
-                    {{/each}}
-
-
-                </div>
-
-                <br>
-            </div>
-
-
-        </div>
-
-    </div> </div>
-
-
+<div id="container" style="width: 100%;" style="background-color:white;">
+    <canvas id="canvas"></canvas>
+</div>
 
 
 </div>
 
+<script>
+    const barChartData = {
+        labels: [{{#each namearray}}'{{this}}',{{/each}}],
+        datasets: [
+
+            {
+                label: "Won",
+                yAxisID: 'bar-stack',
+                backgroundColor: "lightgreen",
+                borderColor: "green",
+                borderWidth: 1,
+                stack: 'now',
+                data: [{{wonarray}}]
+            },
+            {
+                label: "Lost",
+                yAxisID: "bar-stack",
+                backgroundColor: "pink",
+                borderColor: "red",
+                borderWidth: 1,
+                stack: 'now',
+                data: [{{lostarray}}]
+            },
+
+        ]
+    };
+
+    const chartOptions = {
+        responsive: true,
+        scales: {
+            yAxes: [
+                {
+                    id: "bar-stack",
+                    position: "left",
+                    stacked: true,
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }],
+            x: {
+                ticks: {
+                    color: 'white', beginAtZero: true,
+                    font: {
+                        size: 18,
+                    }
+                }
+            }
+
+        }
+    }
+
+    window.onload = function() {
+        const ctx = document.getElementById("canvas").getContext("2d");
+        window.myBar = new Chart(ctx, {
+            type: "bar",
+            data: barChartData,
+            options: chartOptions,
+
+        });
+    };
 
 
-
+</script>
