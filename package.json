@@ -6,6 +6,8 @@
     "start": "node ./bin/www"
   },
   "dependencies": {
+    "bluebird": "^3.7.2",
+    "canvasjs": "^1.8.3",
     "chart.js": "^3.7.1",
     "chartjs-node-canvas": "^4.1.6",
     "cookie-parser": "~1.4.4",
