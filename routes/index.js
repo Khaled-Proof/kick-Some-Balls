@@ -51,7 +51,6 @@ router.get('/index', function(req, res, next) {
         });
 });
 router.get('/', function(req, res, next) {
-  res.render('index',{ title: 'giZn&Khaled Kicker Project',condition:true,array:[1,2,3,4] } );
     Handlebars.registerHelper('selected', function(option, value){
         if (option === value) {
             return ' selected';
@@ -61,7 +60,7 @@ router.get('/', function(req, res, next) {
     });
     playersdata.find().lean()
         .then(function (doc){
-            res.render('index',{players:doc,title: 'giZen&Khaled Kicker Project'});
+            res.render('index',{players:doc,title: 'giZn&Khaled Kicker Project'});
      });
 });
 
@@ -171,7 +170,7 @@ router.get('/history/:Player2',async function (req, res, next) {
 
     userdata.find({$or: [{Player1: name}, {Player2: name}, {Player3: name}, {Player4: name}]}).lean()
 
-        .then(function (doc)
+        .then(function (doc) {
             res.render('history', {item: doc, title: 'giZn&Khaled Kicker Project',count1:count,won:totalwon,lost:totallose,wonpresent:wonperecent1,lospresent:losperecent1, condition: true,test1:name, array: [1, 2, 3, 4]});
         });
 });
