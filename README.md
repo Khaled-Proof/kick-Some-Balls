@@ -13,6 +13,12 @@ Features:
 
 # requirements
 
+## Ubuntu
+
+- `apt install pkg-config libpixman-1-dev libcairo2-dev libpango1.0-dev libjpeg8-dev libgif-dev make build-essential`
+
+- `npm install --save express-validator@5.3.1` <-- newest is 6.14.0 but the way it's implemented is different
+
 1-Mongoose / Mongodb. 
 
 2-Expressjs
