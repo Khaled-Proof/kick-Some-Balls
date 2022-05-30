@@ -239,7 +239,7 @@ router.get('/charts',async function (req, res, next) {
     //khaled end
 **/
 //giZn start
-    const giZnwon1 = await userdata.countDocuments({$and: [{$or: [{ Player2: 'gizn' }, { Player1: 'gizn' }]}, {$or: [{ $expr: { $gt: ['$team1', '$team2'] }}]}]});
+    const giznwon1 = await userdata.countDocuments({$and: [{$or: [{ Player2: 'gizn' }, { Player1: 'gizn' }]}, {$or: [{ $expr: { $gt: ['$team1', '$team2'] }}]}]});
     const giznwon2 = await userdata.countDocuments({$and: [{$or: [{ Player3: 'gizn' }, { Player4: 'gizn' }]}, {$or: [{ $expr: { $gt: ['$team2', '$team1'] }}]}]});
     const gizntotalwon= giznwon1+giznwon2;
 
