@@ -8,7 +8,7 @@
 </head>
 
 <a href="http://tsgd:9000/">
-    <img src="images/logo_white_150px.png" width="80" height="80"  >
+    <img src="http://tsgd:9000/images/logo_white_150px.png" width="80" height="80"  >
 </a>
 <i style="color: #3dd5f3">Welcome to the {{title}}</i>
 <br>
@@ -26,14 +26,14 @@
         </nav>
 
         <div class="card-body" >
-	 <div class="row" style="background-image:url('images/tisch_1080_la.png');background-repeat: no-repeat;">
+    <div class="row">
         <div class="col-sm">
             <h3>New Match</h3>
 
 <br>
             <form action="/insert" method="post" >
 
-                <img src="images/ts_pro.png" width="100" height="100"  alt="">
+                <img src="http://tsgd:9000/images/figur.jpeg" width="100" height="100"  alt="">
 
                 <h3 style="color: #3dd5f3">Team 1</h3>
 
@@ -49,7 +49,6 @@
                                     <option value="{{this.name}}" {{selected this.name}}>{{this.name}}</option>
                                 {{/each}}
                             </select>
-
                         </div></div>
 
                     <div class="col-sm">
@@ -63,9 +62,8 @@
                                     {{/each}}
                                 </select>
                         </div></div></div>
-
                 <br>
-                <img src="images/ts_pro.png" width="100" height="100"  alt="">
+                <img src="http://tsgd:9000/images/figur.jpeg" width="100" height="100"  alt="">
 
                 <h3 style="color:red">Team 2</h3>
                 <div class="row">
@@ -73,7 +71,7 @@
                     <div class="col-sm">
 
                         <div class="form-group" >
-			<label>Vorne
+                            <label>Vorne
                                 <input id="Player3" name="Player3" type="hidden" " />
 
                                 <select id="Player3" name="Player3">
@@ -131,23 +129,14 @@
             <ul class="list-group" >
                 {{#each item}}
 
-                    <article class="alert alert-primary" role="alert">
-                        <div>ID: {{this._id}} </div>
-                        <div>Matchdaty: {{this.time}} </div>
-                        <div><a href="charts/{{this.Player1}}" >{{this.Player1}}</a> ,<a href="charts/{{this.Player2}}" >{{this.Player2}}</a> X <a href="charts/{{this.Player3}}" >{{this.Player3}}</a> ,<a href="charts/{{this.Player4}}" >{{this.Player4}}</a> ={{this.team1}}-{{this.team2}}</div>
-                        <div class="row">
-                            <div class="col">
-                        <a href="update/{{this._id}}" class="btn btn-primary">Update</a>
-
                     <article class="list-group-item" role="alert" style="border-radius: 7px">
 
-                        <div><a href="history/{{this.Player1}}" >{{this.Player1}}</a> + <a href="history/{{this.Player2}}" >{{this.Player2}}</a> <strong>({{this.team1}})</strong> <strong style="color:red" >  vs  </strong><a href="history/{{this.Player3}}" >{{this.Player3}}</a> + <a href="history/{{this.Player4}}" >{{this.Player4}}</a> <strong>({{this.team2}})</strong></div>
+                        <div><a href="http://tsgd:9000/history/{{this.Player1}}" >{{this.Player1}}</a> + <a href="http://tsgd:9000/history/{{this.Player2}}" >{{this.Player2}}</a> <strong>({{this.team1}})</strong> <strong style="color:red" >  vs  </strong><a href="http://tsgd:9000/history/{{this.Player3}}" >{{this.Player3}}</a> + <a href="http://tsgd:9000/history/{{this.Player4}}" >{{this.Player4}}</a> <strong>({{this.team2}})</strong></div>
                         <div>{{this.time}} </div>
 
                         <div class="row">
                             <div class="col">
-                        <a href="update/{{this._id}}" class="btn btn-outline-secondary">Update</a>
-
+                        <a href="http://tsgd:9000/update/{{this._id}}" class="btn btn-outline-secondary">Update</a>
                             </div>
                         <form action="/delete" method="post">
                             <input name="id" value={{this._id}} hidden>

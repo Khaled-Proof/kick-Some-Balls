@@ -29,9 +29,9 @@ app.use(expressValidator());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('images', express.static('images'));
-app.use('images', express.static(path.join(__dirname,'images')));
-app.use('stylesheets', express.static(path.join(__dirname,'stylesheets')));
+app.use('/images', express.static('images'));
+app.use('/images', express.static(path.join(__dirname,'images')));
+app.use('/stylesheets', express.static(path.join(__dirname,'stylesheets')));
 
 
 app.use(expressSession({secret:'max',saveUninitialized:false,resave:false}));
