@@ -40,7 +40,7 @@ const playersdata=mongoose.model('Playersdata',playersSchema);
 //Data retrive with mongoose for this you do not need mongodb
 router.get('/register', function(req, res, next) {
 
-  res.render('register',{ title: 'giZen&Khaled Kicker Project',condition:true,array:[1,2,3,4] } );
+  res.render('register',{ title: 'giZn&Khaled Kicker Project',condition:true,array:[1,2,3,4] } );
 
 });
 router.get('/index', function(req, res, next) {
@@ -53,7 +53,7 @@ router.get('/index', function(req, res, next) {
     });
     playersdata.find().lean()
         .then(function (doc){
-            res.render('index',{players:doc,title: 'giZen&Khaled Kicker Project'});
+            res.render('index',{players:doc,title: 'giZn&Khaled Kicker Project'});
 
         });
 
@@ -68,7 +68,7 @@ router.get('/', function(req, res, next) {
     });
     playersdata.find().lean()
         .then(function (doc){
-            res.render('index',{players:doc,title: 'giZen&Khaled Kicker Project'});
+            res.render('index',{players:doc,title: 'giZn&Khaled Kicker Project'});
 
         });
 
@@ -86,7 +86,7 @@ router.get('/get-data', function (req, res, next) {
     });
     userdata.find().lean()
     .then(function (doc){
-      res.render('index',{item:doc,title: 'giZen&Khaled Kicker Project'});
+      res.render('index',{item:doc,title: 'giZn&Khaled Kicker Project'});
     });
 });
 
@@ -142,7 +142,7 @@ router.post('/delete', function(req, res, next) {
 });
 
 router.get('/update/:id',function (req,res,next){
-  res.render('update',{output:req.params.id,title: 'giZen&Khaled Kicker Project'});
+  res.render('update',{output:req.params.id,title: 'giZn&Khaled Kicker Project'});
 });
 
 router.get('/history/:Player2',async function (req, res, next) {
@@ -182,7 +182,7 @@ router.get('/history/:Player2',async function (req, res, next) {
     userdata.find({$or: [{Player1: name}, {Player2: name}, {Player3: name}, {Player4: name}]}).lean()
 
         .then(function (doc) {
-            res.render('history', {item: doc, title: 'giZen&Khaled Kicker Project',count1:count,won:totalwon,lost:totallose,wonpresent:wonperecent1,lospresent:losperecent1, condition: true,test1:name, array: [1, 2, 3, 4]});
+            res.render('history', {item: doc, title: 'giZn&Khaled Kicker Project',count1:count,won:totalwon,lost:totallose,wonpresent:wonperecent1,lospresent:losperecent1, condition: true,test1:name, array: [1, 2, 3, 4]});
         });
 
 });
@@ -219,7 +219,7 @@ router.get('/charts',async function (req, res, next) {
         }
         const wontot = JSON.stringify(finalResults)
       //  khaledwon:khaledtotalwon,khaledlost:khaledtotallose,totalg:khaledtotal,
-        res.render('charts', {title: 'giZen&Khaled Kicker Project', condition: true, namearray: finalResults,wonarray:wonResults,lostarray:lostResults
+        res.render('charts', {title: 'giZn&Khaled Kicker Project', condition: true, namearray: finalResults,wonarray:wonResults,lostarray:lostResults
         });
 
 
@@ -238,15 +238,15 @@ router.get('/charts',async function (req, res, next) {
     const khaledtotal =khaledtotallose+khaledtotalwon;
     //khaled end
 **/
-//giZen start
-    const giZenwon1 = await userdata.countDocuments({$and: [{$or: [{ Player2: 'giZen' }, { Player1: 'giZen' }]}, {$or: [{ $expr: { $gt: ['$team1', '$team2'] }}]}]});
-    const giZenwon2 = await userdata.countDocuments({$and: [{$or: [{ Player3: 'giZen' }, { Player4: 'giZen' }]}, {$or: [{ $expr: { $gt: ['$team2', '$team1'] }}]}]});
-    const giZentotalwon= giZenwon1+giZenwon2;
+//giZn start
+    const giZnwon1 = await userdata.countDocuments({$and: [{$or: [{ Player2: 'gizn' }, { Player1: 'gizn' }]}, {$or: [{ $expr: { $gt: ['$team1', '$team2'] }}]}]});
+    const giznwon2 = await userdata.countDocuments({$and: [{$or: [{ Player3: 'gizn' }, { Player4: 'gizn' }]}, {$or: [{ $expr: { $gt: ['$team2', '$team1'] }}]}]});
+    const gizntotalwon= giznwon1+giznwon2;
 
-    const giZenlose1 = await userdata.countDocuments({$and: [{$or: [{ Player2: 'giZen' }, { Player1: 'giZen' }]}, {$or: [{ $expr: { $lt: ['$team1', '$team2'] }}]}]});
-    const giZenlose2 = await userdata.countDocuments({$and: [{$or: [{ Player3: 'giZen' }, { Player4: 'giZen' }]}, {$or: [{ $expr: { $lt: ['$team2', '$team1'] }}]}]});
-    const giZentotallose= giZenlose1+giZenlose2;
-    //giZen end
+    const giznlose1 = await userdata.countDocuments({$and: [{$or: [{ Player2: 'gizn' }, { Player1: 'gizn' }]}, {$or: [{ $expr: { $lt: ['$team1', '$team2'] }}]}]});
+    const giznlose2 = await userdata.countDocuments({$and: [{$or: [{ Player3: 'gizn' }, { Player4: 'gizn' }]}, {$or: [{ $expr: { $lt: ['$team2', '$team1'] }}]}]});
+    const gizntotallose= giznlose1+giznlose2;
+    //gizn end
 
     //Nico start
     const Nicowon1 = await userdata.countDocuments({$and: [{$or: [{ Player2: 'Nico' }, { Player1: 'Nico' }]}, {$or: [{ $expr: { $gt: ['$team1', '$team2'] }}]}]});
@@ -266,7 +266,6 @@ router.get('/charts',async function (req, res, next) {
     const Davidlose2 = await userdata.countDocuments({$and: [{$or: [{ Player3: 'David' }, { Player4: 'David' }]}, {$or: [{ $expr: { $lt: ['$team2', '$team1'] }}]}]});
     const Davidtotallose= Davidlose1+Davidlose2;
     //Nico end
-  //  res.render('charts', { title: 'giZen&Khaled Kicker Project',khaledwon:khaledtotalwon,khaledlost:khaledtotallose,giZenwon:giZentotalwon,giZenlost:giZentotallose,Nicowon:Nicototalwon,Nicolost:Nicototallose,Davidwon:Davidtotalwon,Davidlost:Davidtotallose, condition: true, array: [1, 2, 3, 4]});
 
 
 });
@@ -292,7 +291,7 @@ router.get('/get-players', function (req, res, next) {
     // in the line belwo you can write the condtions of the data you wanna retrive in dthe finde funtion
     playersdata.find().lean()
         .then(function (doc){
-            res.render('register',{item:doc,title: 'giZen&Khaled Kicker Project'});
+            res.render('register',{item:doc,title: 'giZn&Khaled Kicker Project'});
         });
 });
 
@@ -308,12 +307,12 @@ router.post('/delete-player', function(req, res, next) {
 /* GET home page. Data retive with mongodb
 
 router.get('/index', function(req, res, next) {
-  res.render('index',{ title: 'giZen&Khaled Kicker Project',condition:true,array:[1,2,3,4] } );
+  res.render('index',{ title: 'gizn&Khaled Kicker Project',condition:true,array:[1,2,3,4] } );
 
 
 });
 router.get('/', function(req, res, next) {
-  res.render('index',{ title: 'giZen&Khaled Kicker Project',condition:true,array:[1,2,3,4] } );
+  res.render('index',{ title: 'gizn&Khaled Kicker Project',condition:true,array:[1,2,3,4] } );
 
 
 });
@@ -329,7 +328,7 @@ const resultarray =[];
           resultarray.push(doc);
         },function (){
           // MongoClient.close(); should chck the connetion closing again
-          res.render('index',{items:resultarray,title: 'giZen&Khaled Kicker Project',condition:true,array:[1,2,3,4] } );
+          res.render('index',{items:resultarray,title: 'gizn&Khaled Kicker Project',condition:true,array:[1,2,3,4] } );
         });
       });
     });
