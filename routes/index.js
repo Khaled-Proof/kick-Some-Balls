@@ -24,7 +24,7 @@ Player1: {type:String},
 Player2: {type:String},
 Player3: {type:String},
 Player4: {type:String},
-time: {type:String},
+time: {type:Date},
 team1: {type:Number},
 team2: {type:Number},
 },{collection:'user-data'});
@@ -84,7 +84,7 @@ router.get('/get-data', function (req, res, next) {
             return ''
         }
     });
-    userdata.find().lean()
+    userdata.find().lean().sort({'time':-1})
     .then(function (doc){
       res.render('index',{item:doc,title: 'giZn&Khaled Kicker Project'});
     });
@@ -92,19 +92,18 @@ router.get('/get-data', function (req, res, next) {
 
 router.post('/insert', function(req, res, next) {
     const id = req.body.id;
-    const  d = new Date();
-    const datetime= d.getDate() + '/' + (d.getMonth()+1) + '/' + d.getFullYear() + '-' + d.getHours() + ':' + d.getMinutes() + ':' + d.getSeconds();
+    const d = new Date();
+    const datetime = new Date(d.getTime() -(d.getTimezoneOffset() * 60000)).toISOString().split('.')[0];
 
     const item = {
     Player1: req.body.Player1.toString().replace(",", ""),
     Player2: req.body.Player2.toString().replace(",", ""),
     Player3: req.body.Player3.toString().replace(",", ""),
     Player4: req.body.Player4.toString().replace(",", ""),
-      time:datetime,
+    time:datetime,
     team1: req.body.team1,
     team2: req.body.team2,
   };
-
 
 const data=new userdata(item);
 data.save();
