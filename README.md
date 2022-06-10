@@ -5,8 +5,11 @@ a very simple Tool to document soccer table. the tool still very primitive but u
 Features:
 
 1- you can register new players
+
 2- document the match's Players and Result 
+
 3- show game-history of each player and show all played games
+
 4-creat win and lost charts
 
 
