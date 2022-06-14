@@ -16,7 +16,7 @@ const inetract = require('interact.js');
 const mongoose = require("mongoose");
 const Handlebars = require("handlebars");
 const path = require("path");
-mongoose.connect('mongodb://localhost:27017/test');
+mongoose.connect('mongodb://tsgd:27017/tsgd');
 const Schema =mongoose.Schema;
 
 const userdataSchema = new Schema({
@@ -24,7 +24,7 @@ const userdataSchema = new Schema({
     Player2: {type:String},
     Player3: {type:String},
     Player4: {type:String},
-    time: {type:String},
+    time: {type:Date},
     team1: {type:Number},
     team2: {type:Number},
 },{collection:'user-data'});
@@ -95,8 +95,7 @@ router.get('/get-data', function (req, res, next) {
 router.post('/insert', function(req, res, next) {
     const id = req.body.id;
     const  d = new Date();
-    const datetime= d.getDate() + '/' + (d.getMonth()+1) + '/' + d.getFullYear() + '-' + d.getHours() + ':' + d.getMinutes() + ':' + d.getSeconds();
-
+    const datetime = new Date(d.getTime() -(d.getTimezoneOffset() * 60000)).toISOString().split('.')[0];
     const item = {
         Player1: req.body.Player1.toString().replace(",", ""),
         Player2: req.body.Player2.toString().replace(",", ""),
