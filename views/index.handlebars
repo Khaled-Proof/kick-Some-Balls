@@ -7,8 +7,8 @@
 
 </head>
 
-<a href="http://tsgd:9000/">
-    <img src="http://tsgd:9000/images/logo_white_150px.png" width="80" height="80"  >
+<a href="http://localhost:9000/">
+    <img src="http://localhost:9000/images/logo_white_150px.png" width="80" height="80"  >
 </a>
 <i style="color: #3dd5f3">Welcome to the {{title}}</i>
 <br>
@@ -23,9 +23,11 @@
 
                 <button><a href="/register"  >register a Player</a></button>
                 <button><a href="/charts"  >show games charts</a></button>
+            <button><a href="/index"  >back</a></button>
+
         </nav>
 
-        <div class="card-body" style="background-image:url('images/tisch_1080_la.png');background-repeat: no-repeat;">
+        <div class="card-body" >
     <div class="row">
         <div class="col-sm">
             <h3>New Match</h3>
@@ -33,7 +35,7 @@
 <br>
             <form action="/insert" method="post" >
 
-                <img src="http://tsgd:9000/images/ts_pro.png" width="100" height="100"  alt="">
+                <img src="http://localhost:9000/images/figur.jpeg" width="100" height="100"  alt="">
 
                 <h3 style="color: #3dd5f3">Team 1</h3>
 
@@ -63,7 +65,7 @@
                                 </select>
                         </div></div></div>
                 <br>
-                <img src="http://tsgd:9000/images/ts_pro.png" width="100" height="100"  alt="">
+                <img src="http://localhost:9000/images/figur.jpeg" width="100" height="100"  alt="">
 
                 <h3 style="color:red">Team 2</h3>
                 <div class="row">
@@ -131,12 +133,15 @@
 
                     <article class="list-group-item" role="alert" style="border-radius: 7px">
 
-                        <div><a href="http://tsgd:9000/history/{{this.Player1}}" >{{this.Player1}}</a> + <a href="http://tsgd:9000/history/{{this.Player2}}" >{{this.Player2}}</a> <strong>({{this.team1}})</strong> <strong style="color:red" >  vs  </strong><a href="http://tsgd:9000/history/{{this.Player3}}" >{{this.Player3}}</a> + <a href="http://tsgd:9000/history/{{this.Player4}}" >{{this.Player4}}</a> <strong>({{this.team2}})</strong></div>
+                        <div><a href="http://localhost:9000/history/{{this.Player1}}" >{{this.Player1}}</a> + <a href="http://localhost:9000/history/{{this.Player2}}" >{{this.Player2}}</a> <strong>({{this.team1}})</strong> <strong style="color:red" >  vs  </strong><a href="http://localhost:9000/history/{{this.Player3}}" >{{this.Player3}}</a> + <a href="http://localhost:9000/history/{{this.Player4}}" >{{this.Player4}}</a> <strong>({{this.team2}})</strong></div>
                         <div>{{this.time}} </div>
 
                         <div class="row">
                             <div class="col">
-                        <a href="http://tsgd:9000/update/{{this._id}}" class="btn btn-outline-secondary">Update</a>
+                        <a href="http://localhost:9000/update/{{this._id}}" class="btn btn-outline-secondary">Update</a>
+                            </div>
+                            <div class="col">
+                                <a href="http://localhost:9000/reinsert/{{this._id}}" class="btn btn-outline-secondary">reinsert</a>
                             </div>
                         <form action="/delete" method="post">
                             <input name="id" value={{this._id}} hidden>
