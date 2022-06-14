@@ -150,7 +150,10 @@ router.get('/update/:id',async function (req, res, next) {
         p2=doc.Player2;
         p3=doc.Player3;
         p4=doc.Player4;
-        res.render('update', {item1:p1,item2:p2,item3:p3,item4:p4,item: doc, output: req.params.id, title: 'giZen&Khaled Kicker Project'});
+        t1=doc.team1;
+        t2=doc.team2;
+
+        res.render('update', {item1:p1,item2:p2,item3:p3,item4:p4,item5:t1,item6:t2,item: doc, output: req.params.id, title: 'giZen&Khaled Kicker Project'});
     });
     // res.render('update',{output:req.params.id,output1:doc.Player1,title: 'giZen&Khaled Kicker Project'});
 });
