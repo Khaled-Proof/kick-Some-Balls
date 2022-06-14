@@ -40,7 +40,7 @@ const playersdata=mongoose.model('Playersdata',playersSchema);
 //Data retrive with mongoose for this you do not need mongodb
 router.get('/register', function(req, res, next) {
 
-    res.render('register',{ title: 'giZen&Khaled Kicker Project',condition:true,array:[1,2,3,4] } );
+    res.render('register',{ title: 'gizn&Khaled Kicker Project',condition:true,array:[1,2,3,4] } );
 
 });
 router.get('/index', function(req, res, next) {
@@ -53,7 +53,7 @@ router.get('/index', function(req, res, next) {
     });
     playersdata.find().lean()
         .then(function (doc){
-            res.render('index',{players:doc,title: 'giZen&Khaled Kicker Project'});
+            res.render('index',{players:doc,title: 'gizn&Khaled Kicker Project'});
 
         });
 
@@ -68,7 +68,7 @@ router.get('/', function(req, res, next) {
     });
     playersdata.find().lean()
         .then(function (doc){
-            res.render('index',{players:doc,title: 'giZen&Khaled Kicker Project'});
+            res.render('index',{players:doc,title: 'gizn&Khaled Kicker Project'});
 
         });
 
@@ -86,7 +86,7 @@ router.get('/get-data', function (req, res, next) {
     });
     userdata.find().sort({time:-1}).lean()
         .then(function (doc){
-            res.render('index',{item:doc,title: 'giZen&Khaled Kicker Project'});
+            res.render('index',{item:doc,title: 'gizn&Khaled Kicker Project'});
         });
 
 
@@ -152,9 +152,9 @@ router.get('/update/:id',async function (req, res, next) {
         t1=doc.team1;
         t2=doc.team2;
 
-        res.render('update', {item1:p1,item2:p2,item3:p3,item4:p4,item5:t1,item6:t2,item: doc, output: req.params.id, title: 'giZen&Khaled Kicker Project'});
+        res.render('update', {item1:p1,item2:p2,item3:p3,item4:p4,item5:t1,item6:t2,item: doc, output: req.params.id, title: 'gizn&Khaled Kicker Project'});
     });
-    // res.render('update',{output:req.params.id,output1:doc.Player1,title: 'giZen&Khaled Kicker Project'});
+    // res.render('update',{output:req.params.id,output1:doc.Player1,title: 'gizn&Khaled Kicker Project'});
 });
 
 router.get('/reinsert/:id',async function (req, res, next) {
@@ -168,9 +168,9 @@ router.get('/reinsert/:id',async function (req, res, next) {
         p2=doc.Player2;
         p3=doc.Player3;
         p4=doc.Player4;
-        res.render('reinsert', {item1:p1,item2:p2,item3:p3,item4:p4,item: doc, output: req.params.id, title: 'giZen&Khaled Kicker Project'});
+        res.render('reinsert', {item1:p1,item2:p2,item3:p3,item4:p4,item: doc, output: req.params.id, title: 'gizn&Khaled Kicker Project'});
     });
-    // res.render('update',{output:req.params.id,output1:doc.Player1,title: 'giZen&Khaled Kicker Project'});
+    // res.render('update',{output:req.params.id,output1:doc.Player1,title: 'gizn&Khaled Kicker Project'});
 });
 
 router.post('/reinsert', function(req, res, next) {
@@ -235,7 +235,7 @@ router.get('/history/:Player2',async function (req, res, next) {
     userdata.find({$or: [{Player1: name}, {Player2: name}, {Player3: name}, {Player4: name}]}).lean()
 
         .then(function (doc) {
-            res.render('history', {item: doc, title: 'giZen&Khaled Kicker Project',count1:count,won:totalwon,lost:totallose,wonpresent:wonperecent1,lospresent:losperecent1, condition: true,test1:name, array: [1, 2, 3, 4]});
+            res.render('history', {item: doc, title: 'gizn&Khaled Kicker Project',count1:count,won:totalwon,lost:totallose,wonpresent:wonperecent1,lospresent:losperecent1, condition: true,test1:name, array: [1, 2, 3, 4]});
         });
 
 });
@@ -320,7 +320,7 @@ router.get('/charts',async function (req, res, next) {
         const wontot = JSON.stringify(finalResults)
         playersdata.find().lean()
             .then(function (doc){
-                res.render('charts', {item:doc,title: 'giZen&Khaled Kicker Project', condition: true, namearray: finalResults,wonarray:wonResults,lostarray:lostResults,wper:persentagew,lper:persentagel,total:totalplayed,pn2:n2names,gwin:p23wons,glos:p23los,glw:p23lw,st:strich
+                res.render('charts', {item:doc,title: 'gizn&Khaled Kicker Project', condition: true, namearray: finalResults,wonarray:wonResults,lostarray:lostResults,wper:persentagew,lper:persentagel,total:totalplayed,pn2:n2names,gwin:p23wons,glos:p23los,glw:p23lw,st:strich
             });
         //  khaledwon:khaledtotalwon,khaledlost:khaledtotallose,totalg:khaledtotal,
         });
@@ -354,7 +354,7 @@ router.get('/get-players', function (req, res, next) {
     // in the line belwo you can write the condtions of the data you wanna retrive in dthe finde funtion
     playersdata.find().lean()
         .then(function (doc){
-            res.render('register',{item:doc,title: 'giZen&Khaled Kicker Project'});
+            res.render('register',{item:doc,title: 'gizn&Khaled Kicker Project'});
         });
 });
 
