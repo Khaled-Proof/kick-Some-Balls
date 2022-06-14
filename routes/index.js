@@ -177,8 +177,7 @@ router.post('/reinsert', function(req, res, next) {
 
     const id = req.body.id;
     const  d = new Date();
-    const datetime= d.getDate() + '/' + (d.getMonth()+1) + '/' + d.getFullYear() + '-' + d.getHours() + ':' + d.getMinutes() + ':' + d.getSeconds();
-
+    const datetime = new Date(d.getTime() -(d.getTimezoneOffset() * 60000)).toISOString().split('.')[0];
     const item = {
         Player1: req.body.Player1.toString().replace(",", ""),
         Player2: req.body.Player2.toString().replace(",", ""),
