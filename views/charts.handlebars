@@ -8,8 +8,8 @@
 </head>
 
 
-<a href="http://tsgd:9000/">
-    <img src="http://tsgd:9000/images/logo_white_150px.png" width="80" height="80"  >
+<a href="http://localhost:9000/">
+    <img src="http://localhost:9000/images/logo_white_150px.png" width="80" height="80"  >
 </a>
 <i style="color: #3dd5f3">Welcome to the {{title}}</i>
 <br>
@@ -19,16 +19,111 @@
 <nav class="navbar navbar-dark bg-dark">
     <button><a href="/register"  >register a Player</a></button>
     <button><a href="/charts"  >show games charts</a></button>
+    <button><a href="/index"  >back</a></button>
+
 </nav>
 
 
 
 <div id="container" style="width: 100%;" style="background-color:white;">
     <canvas id="canvas"></canvas>
-</div>
 
 
+
 </div>
+<br>
+<h1 style="background-color: #ebebeb"> A Simple Stats Table </h1>
+<h2 style="background-color: #ebebeb"> click on the name to know more about the histroy of each Player's Games </h2>
+<table class="table table-bordered" style="background-color: #ebebeb">
+    <tbody>
+    <tr>
+        <th scope="col">#</th>
+    {{#each namearray}}
+    <td><strong><a href="http://localhost:9000/history/{{this}}">{{this}}</a></strong></td>
+    {{/each}}
+    </tr>
+    <tr>
+        <th scope="col">Total Played</th>
+        {{#each total}}
+            <td><strong>{{this}}</strong></td>
+        {{/each}}
+    </tr>
+
+    <tr>
+        <th scope="col">Won</th>
+        {{#each wonarray}}
+            <td><strong>{{this}}</strong></td>
+        {{/each}}
+    </tr>
+    <tr>
+        <th scope="col">Lost</th>
+        {{#each lostarray}}
+            <td><strong>{{this}}</strong></td>
+        {{/each}}
+    </tr>
+    <tr>
+        <th scope="col">Win percentage</th>
+        {{#each wper}}
+            <td><strong>{{this}} %</strong></td>
+        {{/each}}
+    </tr>
+
+    <tr>
+        <th scope="col">Lose percentage</th>
+        {{#each lper}}
+            <td><strong>{{this}} %</strong></td>
+        {{/each}}
+    </tr>
+
+
+    <tr type="I">
+        <th scope="col">Striche</th>
+        {{#each st}}
+            <td type="I"><strong type="I">{{this}} </strong></td>
+        {{/each}}
+    </tr>
+    </tbody>
+</table>
+
+
+<br>
+<h1 style="background-color: #ebebeb"> A Simple Teams_Stats Table </h1>
+<table class="table table-bordered" style="background-color: #ebebeb">
+    <tbody>
+
+    <tr>
+        <th scope="col">Teams</th>
+        {{#each pn2}}
+            <td><strong >{{this}}</a></strong></td>
+        {{/each}}
+    </tr>
+
+
+    <th scope="col">total played</th>
+    {{#each glw}}
+        <td><strong>{{this}}</a></strong></td>
+    {{/each}}
+    </tr>
+
+
+    <th scope="col">Wins</th>
+    {{#each gwin}}
+        <td><strong style="color: green">{{this}}</a></strong></td>
+    {{/each}}
+    </tr>
+
+    <th scope="col">Loses</th>
+    {{#each glos}}
+        <td><strong style="color: #c82333">{{this}}</a></strong></td>
+    {{/each}}
+    </tr>
+
+
+
+    </tbody>
+</table>
+</div>
+<br>
 
 <script>
     const barChartData = {
