@@ -12,6 +12,11 @@ Features:
 
 4-creat win and lost charts
 
+5- added some teams stats 
+
+6- Update/ reinsert/ delet Buttons
+
+
 
 
 # requirements
