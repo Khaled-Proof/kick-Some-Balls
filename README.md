@@ -12,7 +12,7 @@ Features:
 
 - show a shitload of stats about all the played games (continiously improved)
 
-- Update/ reinsert/ delete function if mistyped or want to fast reinsert during best of 3 or 5 matches
+- Update/ reinsert/ delete function if typo or want to fast reinsert during best of 3 or 5 matches
 
 
 # requirements
