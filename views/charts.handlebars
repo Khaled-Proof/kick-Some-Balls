@@ -160,57 +160,6 @@
 
 
 
-<h1 style="background-color: #343a40;color: #ebebeb"> Generic stats </h1>
-<h6 style="background-color: #2d3034;color: #ebebeb"> click on the name to know more about the history of each Player's Games </h6>
-<table class="table table-bordered" style="background-color: #2d3034;color: #ebebeb">
-    <tbody>
-    <tr>
-        <th scope="col">#</th>
-    {{#each namearray}}
-    <td><strong><a href="http://tsgd:9000/history/{{this}}">{{this}}</a></strong></td>
-    {{/each}}
-    </tr>
-    <tr>
-        <th scope="col">Total Played</th>
-        {{#each total}}
-            <td><strong>{{this}}</strong></td>
-        {{/each}}
-    </tr>
-    <tr>
-        <th scope="col">Won</th>
-        {{#each wonarray}}
-            <td><strong>{{this}}</strong></td>
-        {{/each}}
-    </tr>
-    <tr>
-        <th scope="col">Lost</th>
-        {{#each lostarray}}
-            <td><strong>{{this}}</strong></td>
-        {{/each}}
-    </tr>
-    <tr>
-        <th scope="col">Win percentage</th>
-        {{#each wper}}
-            <td><strong>{{this}} %</strong></td>
-        {{/each}}
-    </tr>
-
-    <tr>
-        <th scope="col">Lose percentage</th>
-        {{#each lper}}
-            <td><strong>{{this}} %</strong></td>
-        {{/each}}
-    </tr>
-
-
-    <tr type="I">
-        <th scope="col">owned to 0</th>
-        {{#each st}}
-            <td type="I"><strong type="I">{{this}} </strong></td>
-        {{/each}}
-    </tr>
-    </tbody>
-</table>
 
 
 <br>
