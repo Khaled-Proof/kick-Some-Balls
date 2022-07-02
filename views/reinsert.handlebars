@@ -7,7 +7,22 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-mousewheel/3.1.13/jquery.mousewheel.min.js"></script>
     <script src="../javascripts/mousewheel.js"></script>
+    <script>
+    function switchp1p2() {
+      var p1 = document.getElementById("Player1").value;
+      var p2 = document.getElementById("Player2").value;
+      document.getElementById("Player1").value=p2;
+      document.getElementById("Player2").value=p1;
+    }
+    function switchp3p4() {
+      var p3 = document.getElementById("Player3").value;
+      var p4 = document.getElementById("Player4").value;
+      document.getElementById("Player3").value=p4;
+      document.getElementById("Player4").value=p3;
+    }
+    </script>
 </head>
+
 
 
 <a href="http://tsgd:9000/">
@@ -47,14 +62,16 @@
                             <div class="col-sm">
                                 <div class="form-group" >
                                     <label>
-                                        <input list="Player1" name="Player1" placeholder="{{item1}}" style="background-color: #2c3034" class="form-control form-rounded" value="{{item1}}"/></label>
+                                        <input list="Player1" name="Player1" placeholder="{{item1}}" style="background-color: #2c3034" id="Player1" class="form-control form-rounded" value="{{item1}}"/></label>
 
-                                </div></div>
-
+				</div>
+				</div>
+				<div class="row col-sm form-group">
+				  <button type="button" id="player1_switch" onclick="switchp1p2(); return false;">switch players</button></div>
                             <div class="col-sm">
                                 <div class="form-group">
                                     <label>
-                                        <input list="Player2" name="Player2" placeholder="{{item2}}" style="background-color: #2c3034" class="form-control form-rounded" value="{{item2}}" /></label>
+                                        <input list="Player2" name="Player2" placeholder="{{item2}}" style="background-color: #2c3034" id="Player2" class="form-control form-rounded" value="{{item2}}" /></label>
 
                                 </div>
                             </div></div>
@@ -68,13 +85,16 @@
 
                                 <div class="form-group" >
                                     <label>
-                                        <input list="Player3" name="Player3" placeholder="{{item3}}"  style="background-color: #2c3034" class="form-control form-rounded" value="{{item3}}"/></label>
+                                        <input list="Player3" name="Player3" placeholder="{{item3}}"  style="background-color: #2c3034" id="Player3" class="form-control form-rounded" value="{{item3}}"/></label>
 
                                 </div></div>
+				<div class="row col-sm form-group">
+				  <button type="button" id="player3_switch" onclick="switchp3p4(); return false;">switch players</button></div>
+
                             <div class="col-sm">
                                 <div class="form-group">
                                     <label>
-                                        <input list="Player4" name="Player4" placeholder="{{item4}}" style="background-color: #2c3034" class="form-control form-rounded" value="{{item4}}"/></label>
+                                        <input list="Player4" name="Player4" placeholder="{{item4}}" style="background-color: #2c3034" id="Player4" class="form-control form-rounded" value="{{item4}}"/></label>
 
                                 </div>
                             </div></div>
