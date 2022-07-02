@@ -5,35 +5,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-mousewheel/3.1.13/jquery.mousewheel.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
-    <script>
-	$(function() {
-            $("#team1").bind("mousewheel", function(event, delta) {
-		    if (delta > 0) {
-			    if (parseInt(this.value) < 8) {
-				    this.value = parseInt(this.value) + 1;}
-            } else {
-            if (parseInt(this.value) > 0) {
-              this.value = parseInt(this.value) - 1;
-            }
-        }
-        return false;
-        });
-      });
-	$(function() {
-           $("#team2").bind("mousewheel", function(event, delta) {
-		    if (delta > 0) {
-			    if (parseInt(this.value) < 8) {
-				    this.value = parseInt(this.value) + 1;}
-            } else {
-            if (parseInt(this.value) > 0) {
-              this.value = parseInt(this.value) - 1;
-            }
-        }
-        return false;
-        });
-      });
-
-    </script>
+    <script src="javascripts/mousewheel.js"></script>
 
 </head>
 
