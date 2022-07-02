@@ -1,52 +1,45 @@
 # kick-Some-Balls
 
-a very simple Tool to document soccer table. the tool still very primitive but under construction (:.
+a simple tool to document tablesoccer statistics for a group of players. 
 
 Features:
 
-1- you can register new players
+- register new players
 
-2- document the match's Players and Result 
+- document the match's players and result 
 
-3- show game-history of each player and show all played games
+- show games-history of each player and show all played games
 
-4-creat win and lost charts
+- show a shitload of stats about all the played games (continiously improved)
 
+- Update/ reinsert/ delete function if typo or want to fast reinsert during best of 3 or 5 matches
 
 
 # requirements
 
-## Ubuntu
+## Ubuntu (to run on a remote server setup)
 
 - `apt install pkg-config libpixman-1-dev libcairo2-dev libpango1.0-dev libjpeg8-dev libgif-dev make build-essential`
 
 - `npm install --save express-validator@5.3.1` <-- newest is 6.14.0 but the way it's implemented is different
 
-1-Mongoose / Mongodb. 
+## How to install locally:
 
-2-Expressjs
+1. npm install. 
 
-# How to install:
+2. npm start
 
-1-npm install. 
+3. open the application on port 9000. http://localhost:9000
 
-2-npm start
+# Preview
 
-3- open the application on port 9000. localhost:9000
+![presention](https://user-images.githubusercontent.com/24300473/174416892-355f1196-0370-4042-84d8-39cfa06c6fcb.gif)
 
-Added Some Tracking featuers:
+# Background: 
 
-How many Games each Player played and mark won games with green, lost with red.
+We're a group of tablesoccer enthusiasts which wanted to go the next level of tracking our game stats and have other interesting statistics  around our performance.
 
+But also of course to choose our next tablesoccer season winner:
 
-
-
-https://user-images.githubusercontent.com/25641137/169674470-e7d2c1b3-0744-4ab7-ace0-a97cb90cd041.mov
-
-
-![charts](https://user-images.githubusercontent.com/25641137/169674507-08ea002b-8bf6-46af-b4ce-54ab712e537a.png)
-
-
-Some-Charts and stats
-![stats](https://user-images.githubusercontent.com/25641137/161868304-b75ec978-c3d7-4c3a-991c-0738b8b39143.png)
+![wanderpokel](https://user-images.githubusercontent.com/24300473/174417300-bdd4a068-364b-4ccb-b7af-331fd520a591.jpg)
 
