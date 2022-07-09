@@ -43,7 +43,7 @@ function checkInput(e){
     if (e.keyCode == 8 || e.keyCode == 46 || e.keyCode == 37 || e.keyCode == 39){
       return true;
     }
-    else if (key < 48 || key > 57) {
+    else if (key < 48 || key > 56) {
       return false;
     }
     else return true;
