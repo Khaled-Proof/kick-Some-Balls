@@ -255,6 +255,7 @@ router.get('/charts',async function (req, res, next) {
     const p23los = [];
     const p23lw = [];
     const strich = [];
+    const wlratio = [];
 
 
     const Promise = playersdata.find({ }, async function (err, results) {
@@ -278,6 +279,7 @@ router.get('/charts',async function (req, res, next) {
             const khaledtotallose= (khaledlose1+khaledlose2);
             lostResults.push(-khaledtotallose);
 
+
             const khaledtotal =khaledtotallose+khaledtotalwon;
             const wonpers=(khaledtotalwon/(khaledtotalwon+khaledtotallose))*100;
             persentagew.push(wonpers.toFixed(1));
@@ -286,6 +288,10 @@ router.get('/charts',async function (req, res, next) {
 
             const tota=khaledtotalwon+khaledtotallose;
             totalplayed.push(tota);
+
+            const ratio=khaledtotalwon/khaledtotallose;
+            wlratio.push(ratio);
+
            // console.log(khaledtotalwon)
            // console.log(khaledtotal);
             for (const element1 of results) {
@@ -319,17 +325,11 @@ router.get('/charts',async function (req, res, next) {
         const wontot = JSON.stringify(finalResults)
         playersdata.find().lean()
             .then(function (doc){
-                res.render('charts', {item:doc,title: 'gizn&Khaled Kicker Project', condition: true, namearray: finalResults,wonarray:wonResults,lostarray:lostResults,wper:persentagew,lper:persentagel,total:totalplayed,pn2:n2names,gwin:p23wons,glos:p23los,glw:p23lw,st:strich
+                res.render('charts', {item:doc,title: 'gizn&Khaled Kicker Project', condition: true, namearray: finalResults,wonarray:wonResults,lostarray:lostResults,wper:persentagew,lper:persentagel,total:totalplayed,wl:wlratio,pn2:n2names,gwin:p23wons,glos:p23los,glw:p23lw,st:strich
             });
         //  khaledwon:khaledtotalwon,khaledlost:khaledtotallose,totalg:khaledtotal,
         });
-
-
     });
-
-
-
-
 });
 
 
