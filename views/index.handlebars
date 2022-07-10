@@ -6,7 +6,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-mousewheel/3.1.13/jquery.mousewheel.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
     <script src="javascripts/mousewheel.js"></script>
-
+    <script src="javascripts/unique_input.js"></script>
 </head>
 
 <a href="http://tsgd:9000/">
@@ -45,24 +45,26 @@
                     <br>
                     <div class="col-sm">
                         <div class="form-group" >
-                            <label>Vorne
-                            <input id="Player1" name="Player1" type="hidden"  />
+                            <label>front
+                            <input id="P1" name="Player1" type="hidden"/>
 
-                            <select id="Player1" name="Player1" >
+                            <select id="Player1" name="Player1" onchange="unique_selection(this.id)">
                                 {{#each players}}
-                                    <option value="{{this.name}}" {{selected this.name}}>{{this.name}}</option>
+				<option value="" disabled selected hidden>choose Player1</option>
+				<option value="{{this.name}}" {{selected this.name}}>{{this.name}}</option>
                                 {{/each}}
                             </select>
                         </div></div>
 
                     <div class="col-sm">
                         <div class="form-group">
-                            <label>Hinten
-                                <input id="Player2" name="Player2" type="hidden" " />
+                            <label>back
+                                <input id="P2" name="Player2" type="hidden"/>
 
-                                <select id="Player2" name="Player2">
+                                <select id="Player2" name="Player2" onchange="unique_selection(this.id)">
                                     {{#each players}}
-                                        <option value="{{this.name}}" {{selected this.name}}>{{this.name}}</option>
+				    <option value="" disabled selected hidden>choose Player2</option>
+				    <option value="{{this.name}}" {{selected this.name}}>{{this.name}}</option>
                                     {{/each}}
                                 </select>
                         </div></div></div>
@@ -75,22 +77,24 @@
                     <div class="col-sm">
 
                         <div class="form-group" >
-                            <label>Vorne
-                                <input id="Player3" name="Player3" type="hidden" " />
+                            <label>front
+                                <input id="P3" name="Player3" type="hidden"/>
 
-                                <select id="Player3" name="Player3">
+                                <select id="Player3" name="Player3" onchange="unique_selection(this.id)">
                                     {{#each players}}
+				        <option value="" disabled selected hidden>choose Player3</option>
                                         <option value="{{this.name}}" {{selected this.name}}>{{this.name}}</option>
                                     {{/each}}
                                 </select>
                         </div></div>
                     <div class="col-sm">
                         <div class="form-group">
-                            <label>Hinten
-                                <input id="Player4" name="Player4" type="hidden" " />
+                            <label>back
+                                <input id="P4" name="Player4" type="hidden"/>
 
-                                <select id="Player4" name="Player4">
+                                <select id="Player4" name="Player4" onchange="unique_selection(this.id)">
                                     {{#each players}}
+				        <option value="" disabled selected hidden>choose Player4</option>
                                         <option value="{{this.name}}" {{selected this.name}}>{{this.name}}</option>
                                     {{/each}}
                                 </select>
