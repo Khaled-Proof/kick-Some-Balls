@@ -256,12 +256,18 @@ router.get('/charts',async function (req, res, next) {
     const p23lw = [];
     const strich = [];
 
-
+    var d = new Date();
+    d.setMonth(d.getMonth() -3);
+    
     const Promise = playersdata.find({ }, async function (err, results) {
         for (const element of results) {
            // console.log(element.name);
             let name2 = element.name;
             finalResults.push(name2);
+	    
+   	    const dates = await userdata.find({"time":{$gte: new Date(d)}})
+            console.log(dates)
+
 
             const khaledwon1 = await userdata.countDocuments({$and: [{$or: [{ Player2: name2 }, { Player1: name2 }]}, {$or: [{ $expr: { $gt: ['$team1', '$team2'] }}]}]});
             const khaledwon2 = await userdata.countDocuments({$and: [{$or: [{ Player3: name2 }, { Player4: name2 }]}, {$or: [{ $expr: { $gt: ['$team2', '$team1'] }}]}]});
