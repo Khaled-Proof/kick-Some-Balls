@@ -64,7 +64,12 @@ router.get('/', async function(req, res, next) {
 
     const last_matchid_query = await userdata.find({}).select('matchid -_id').sort({'time': -1}).lean().limit(1).then();
     const last_matchid = JSON.parse(last_matchid_query[0]['matchid']);
-    console.log('last_matchid: ', last_matchid);
+    console.log('last_matchid:', last_matchid);
+
+    const matches = await userdata.find({'matchid': last_matchid}).sort({'time': -1}).lean().then();
+    console.log('matches:', matches);
+    console.log('how much games:', matches.length);
+
 
     Handlebars.registerHelper('selected', function(option, value){
         if (option === value) {
