@@ -27,6 +27,7 @@ const userdataSchema = new Schema({
     time: {type:Date},
     team1: {type:Number},
     team2: {type:Number},
+    matchid: {type:Number},
 },{collection:'user-data'});
 const userdata=mongoose.model('Userdata',userdataSchema);
 
@@ -44,6 +45,7 @@ router.get('/register', function(req, res, next) {
 
 });
 router.get('/index', function(req, res, next) {
+
     Handlebars.registerHelper('selected', function(option, value){
         if (option === value) {
             return ' selected';
@@ -58,7 +60,12 @@ router.get('/index', function(req, res, next) {
         });
 
 });
-router.get('/', function(req, res, next) {
+router.get('/', async function(req, res, next) {
+
+    const last_matchid_query = await userdata.find({}).select('matchid -_id').sort({'time': -1}).lean().limit(1).then();
+    const last_matchid = JSON.parse(last_matchid_query[0]['matchid']);
+    console.log('last_matchid: ', last_matchid);
+
     Handlebars.registerHelper('selected', function(option, value){
         if (option === value) {
             return ' selected';
