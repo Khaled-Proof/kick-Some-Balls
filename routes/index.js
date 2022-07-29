@@ -39,7 +39,7 @@ const playersdata=mongoose.model('Playersdata',playersSchema);
 
 //function to implement the matchid logic
 async function get_matchid(){
-	const last_matchid_query = await userdata.find({}).select('matchid -_id').sort({'time': -1}).lean().limit(1).then();
+    const last_matchid_query = await userdata.find({}).select('matchid -_id').sort({'time': -1}).lean().limit(1).then();
     const last_matchid = JSON.parse(last_matchid_query[0]['matchid']);
     //console.log('last_matchid:', last_matchid);
     const matches = await userdata.find({'matchid': last_matchid}).sort({'time'  : -1}).lean().then();
@@ -51,7 +51,7 @@ async function get_matchid(){
         matchid++;
     }
     console.log("matchid:", matchid)
-	return matchid;
+    return matchid;
 }
 
 //Data retrive with mongoose for this you do not need mongodb
@@ -62,7 +62,7 @@ router.get('/register', function(req, res, next) {
 });
 router.get('/index', function(req, res, next) {
 
-	const matchid = get_matchid();
+    const matchid = get_matchid();
 
     Handlebars.registerHelper('selected', function(option, value){
         if (option === value) {
@@ -80,7 +80,7 @@ router.get('/index', function(req, res, next) {
 });
 router.get('/', async function(req, res, next) {
 
-	const matchid = get_matchid();
+    const matchid = get_matchid();
 
     Handlebars.registerHelper('selected', function(option, value){
         if (option === value) {
@@ -100,7 +100,7 @@ router.get('/', async function(req, res, next) {
 
 router.get('/get-data', function (req, res, next) {
 
-	const matchid = get_matchid();
+    const matchid = get_matchid();
     // in the line belwo you can write the condtions of the data you wanna retrive in dthe finde funtion
     Handlebars.registerHelper('selected', function(option, value){
         if (option === value) {
@@ -130,7 +130,7 @@ router.post('/insert', async function(req, res, next) {
         time:datetime,
         team1: req.body.team1,
         team2: req.body.team2,
-		matchid:matchid,
+        matchid:matchid,
     };
     const data=new userdata(item);
     data.save();
@@ -213,7 +213,7 @@ router.post('/reinsert',async function(req, res, next) {
         time:datetime,
         team1: req.body.team1,
         team2: req.body.team2,
-		matchid:matchid,
+        matchid:matchid,
     };
 
 
