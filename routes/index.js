@@ -37,6 +37,22 @@ const playersSchema = new Schema({
 },{collection:'players-data'});
 const playersdata=mongoose.model('Playersdata',playersSchema);
 
+//function to implement the matchid logic
+async function get_matchid(){
+	const last_matchid_query = await userdata.find({}).select('matchid -_id').sort({'time': -1}).lean().limit(1).then();
+    const last_matchid = JSON.parse(last_matchid_query[0]['matchid']);
+    //console.log('last_matchid:', last_matchid);
+    const matches = await userdata.find({'matchid': last_matchid}).sort({'time'  : -1}).lean().then();
+    const team1_won = await userdata.find({'matchid': last_matchid}).sort({'tim  e': -1}).lean().countDocuments({ $expr: { $gt: ['$team1', '$team2']}});
+    const team2_won = await userdata.find({'matchid': last_matchid}).sort({'tim  e': -1}).lean().countDocuments({ $expr: { $gt: ['$team2', '$team1']}});
+    //console.log(team1_won, team2_won)
+    matchid = last_matchid;
+    if (matches.length >= 2 && team1_won == 2 || team2_won == 2) {
+        matchid++;
+    }
+    console.log("matchid:", matchid)
+	return matchid;
+}
 
 //Data retrive with mongoose for this you do not need mongodb
 router.get('/register', function(req, res, next) {
@@ -45,6 +61,8 @@ router.get('/register', function(req, res, next) {
 
 });
 router.get('/index', function(req, res, next) {
+
+	const matchid = get_matchid();
 
     Handlebars.registerHelper('selected', function(option, value){
         if (option === value) {
@@ -62,14 +80,7 @@ router.get('/index', function(req, res, next) {
 });
 router.get('/', async function(req, res, next) {
 
-    const last_matchid_query = await userdata.find({}).select('matchid -_id').sort({'time': -1}).lean().limit(1).then();
-    const last_matchid = JSON.parse(last_matchid_query[0]['matchid']);
-    console.log('last_matchid:', last_matchid);
-
-    const matches = await userdata.find({'matchid': last_matchid}).sort({'time': -1}).lean().then();
-    console.log('matches:', matches);
-    console.log('how much games:', matches.length);
-
+	const matchid = get_matchid();
 
     Handlebars.registerHelper('selected', function(option, value){
         if (option === value) {
@@ -88,6 +99,8 @@ router.get('/', async function(req, res, next) {
 });
 
 router.get('/get-data', function (req, res, next) {
+
+	const matchid = get_matchid();
     // in the line belwo you can write the condtions of the data you wanna retrive in dthe finde funtion
     Handlebars.registerHelper('selected', function(option, value){
         if (option === value) {
@@ -104,7 +117,8 @@ router.get('/get-data', function (req, res, next) {
 
 });
 
-router.post('/insert', function(req, res, next) {
+router.post('/insert', async function(req, res, next) {
+
     const id = req.body.id;
     const  d = new Date();
     const datetime = new Date(d.getTime() -(d.getTimezoneOffset() * 60000)).toISOString().split('.')[0];
@@ -116,6 +130,7 @@ router.post('/insert', function(req, res, next) {
         time:datetime,
         team1: req.body.team1,
         team2: req.body.team2,
+		matchid:matchid,
     };
     const data=new userdata(item);
     data.save();
@@ -185,7 +200,7 @@ router.get('/reinsert/:id',async function (req, res, next) {
     // res.render('update',{output:req.params.id,output1:doc.Player1,title: 'gizn&Khaled Kicker Project'});
 });
 
-router.post('/reinsert', function(req, res, next) {
+router.post('/reinsert',async function(req, res, next) {
 
     const id = req.body.id;
     const  d = new Date();
@@ -198,6 +213,7 @@ router.post('/reinsert', function(req, res, next) {
         time:datetime,
         team1: req.body.team1,
         team2: req.body.team2,
+		matchid:matchid,
     };
 
 
