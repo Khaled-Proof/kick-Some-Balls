@@ -42,9 +42,9 @@ async function get_matchid(){
     const last_matchid_query = await userdata.find({}).select('matchid -_id').sort({'time': -1}).lean().limit(1).then();
     const last_matchid = JSON.parse(last_matchid_query[0]['matchid']);
     //console.log('last_matchid:', last_matchid);
-    const matches = await userdata.find({'matchid': last_matchid}).sort({'time'  : -1}).lean().then();
-    const team1_won = await userdata.find({'matchid': last_matchid}).sort({'tim  e': -1}).lean().countDocuments({ $expr: { $gt: ['$team1', '$team2']}});
-    const team2_won = await userdata.find({'matchid': last_matchid}).sort({'tim  e': -1}).lean().countDocuments({ $expr: { $gt: ['$team2', '$team1']}});
+    const matches = await userdata.find({'matchid': last_matchid}).sort({'time': -1}).lean().then();
+    const team1_won = await userdata.find({'matchid': last_matchid}).sort({'time': -1}).lean().countDocuments({ $expr: { $gt: ['$team1', '$team2']}});
+    const team2_won = await userdata.find({'matchid': last_matchid}).sort({'time': -1}).lean().countDocuments({ $expr: { $gt: ['$team2', '$team1']}});
     //console.log(team1_won, team2_won)
     matchid = last_matchid;
     if (matches.length >= 2 && team1_won == 2 || team2_won == 2) {
@@ -284,44 +284,52 @@ router.get('/charts',async function (req, res, next) {
     const p23lw = [];
     const strich = [];
     const wlratio = [];
-
+    const matchestotal = [];
+	const matcheswon = []
 
     const Promise = playersdata.find({ }, async function (err, results) {
         for (const element of results) {
-           // console.log(element.name);
+            //console.log(element.name);
             let name2 = element.name;
             finalResults.push(name2);
 
-            const khaledwon1 = await userdata.countDocuments({$and: [{$or: [{ Player2: name2 }, { Player1: name2 }]}, {$or: [{ $expr: { $gt: ['$team1', '$team2'] }}]}]});
-            const khaledwon2 = await userdata.countDocuments({$and: [{$or: [{ Player3: name2 }, { Player4: name2 }]}, {$or: [{ $expr: { $gt: ['$team2', '$team1'] }}]}]});
+            //generic game stats
+            const gameswon_team1 = await userdata.countDocuments({$and: [{$or: [{ Player2: name2 }, { Player1: name2 }]}, {$or: [{ $expr: { $gt: ['$team1', '$team2'] }}]}]});
+            const gameswon_team2 = await userdata.countDocuments({$and: [{$or: [{ Player3: name2 }, { Player4: name2 }]}, {$or: [{ $expr: { $gt: ['$team2', '$team1'] }}]}]});
             const strich1 = await userdata.countDocuments({$and: [{$or: [{ Player2: name2 }, { Player1: name2 }]}, { $expr: { $eq: ['$team2', '0'] }}]});
             const strich2 = await userdata.countDocuments({$and: [{$or: [{ Player3: name2 }, { Player4: name2 }]}, { $expr: { $eq: ['$team1', '0'] }}]});
             const strichtotal=strich1+strich2;
             strich.push(strichtotal);
 
-            const khaledtotalwon= khaledwon1+khaledwon2;
-            wonResults.push(khaledtotalwon);
+            const gamestotalwon= gameswon_team1+gameswon_team2;
+            wonResults.push(gamestotalwon);
 
-            const khaledlose1 = await userdata.countDocuments({$and: [{$or: [{ Player2: name2 }, { Player1: name2 }]}, {$or: [{ $expr: { $lt: ['$team1', '$team2'] }}]}]});
-            const khaledlose2 = await userdata.countDocuments({$and: [{$or: [{ Player3: name2 }, { Player4: name2 }]}, {$or: [{ $expr: { $lt: ['$team2', '$team1'] }}]}]});
-            const khaledtotallose= (khaledlose1+khaledlose2);
-            lostResults.push(-khaledtotallose);
+            const gameslost_team1 = await userdata.countDocuments({$and: [{$or: [{ Player2: name2 }, { Player1: name2 }]}, {$or: [{ $expr: { $lt: ['$team1', '$team2'] }}]}]});
+            const gameslost_team2 = await userdata.countDocuments({$and: [{$or: [{ Player3: name2 }, { Player4: name2 }]}, {$or: [{ $expr: { $lt: ['$team2', '$team1'] }}]}]});
+            const gamestotallost = (gameslost_team1+gameslost_team2);
+            lostResults.push(-gamestotallost);
 
-
-            const khaledtotal =khaledtotallose+khaledtotalwon;
-            const wonpers=(khaledtotalwon/(khaledtotalwon+khaledtotallose))*100;
+            //const khaledtotal =khaledtotallose+khaledtotalwon; //not in use?
+            const wonpers=(gamestotalwon/(gamestotalwon+gamestotallost))*100;
             persentagew.push(wonpers.toFixed(1));
-            const lostpers=(khaledtotallose/(khaledtotalwon+khaledtotallose))*100;
+            const lostpers=(gamestotallost/(gamestotalwon+gamestotallost))*100;
             persentagel.push(lostpers.toFixed(1));
 
-            const tota=khaledtotalwon+khaledtotallose;
+            const tota=gamestotalwon+gamestotallost;
             totalplayed.push(tota);
 
-            const ratio=khaledtotalwon/khaledtotallose;
+            const ratio=gamestotalwon/gamestotallost;
             wlratio.push(ratio);
-
-           // console.log(khaledtotalwon)
-           // console.log(khaledtotal);
+            
+            const matchstats = userdata.find({}, async function (err, results) {
+				for (const element2 of results2) {
+					let match = element2.matchid;
+					const matchwon_team1 = await userdata.find({'matchid': match}).countDocuments({$and: [{$or: [{ Player2: name2 }, { Player1: name2 }]}, {$or: [{ $expr: { $gt: ['$team1', '$team2'] }}]}]});
+					const matchwon_team2 = await userdata.find({'matchid': match}).countDocuments({$and: [{$or: [{ Player2: name2 }, { Player1: name2 }]}, {$or: [{ $expr: { $gt: ['$team2', '$team1'] }}]}]});
+				    
+				}
+			})
+			//team stats
             for (const element1 of results) {
                 let name3 = element1.name;
                 if(name2 !=name3) {
