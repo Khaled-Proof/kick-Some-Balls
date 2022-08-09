@@ -285,7 +285,8 @@ router.get('/charts',async function (req, res, next) {
     const strich = [];
     const wlratio = [];
     const matchestotal = [];
-	const matcheswon = []
+	const matcheswon = Array(10).fill(0); //length of playersdata would be better
+	const matcheslost = [];
 
     const Promise = playersdata.find({ }, async function (err, results) {
         for (const element of results) {
@@ -320,15 +321,42 @@ router.get('/charts',async function (req, res, next) {
 
             const ratio=gamestotalwon/gamestotallost;
             wlratio.push(ratio);
-            
-            const matchstats = userdata.find({}, async function (err, results) {
-				for (const element2 of results2) {
-					let match = element2.matchid;
-					const matchwon_team1 = await userdata.find({'matchid': match}).countDocuments({$and: [{$or: [{ Player2: name2 }, { Player1: name2 }]}, {$or: [{ $expr: { $gt: ['$team1', '$team2'] }}]}]});
-					const matchwon_team2 = await userdata.find({'matchid': match}).countDocuments({$and: [{$or: [{ Player2: name2 }, { Player1: name2 }]}, {$or: [{ $expr: { $gt: ['$team2', '$team1'] }}]}]});
-				    
+
+            const matchstats = userdata.find({}, async function (err, results2) {
+
+            const last_matchid_query = await userdata.find({}).select('matchid -_id').sort({'time': -1}).lean().limit(1).then();
+            const last_matchid = JSON.parse(last_matchid_query[0]['matchid']);
+			for (let match=1;match<=last_matchid;match++) {
+
+				const gamewon_team1 = await userdata.find({'matchid': match}).countDocuments({$and: [{$or: [{ Player2: name2 }, { Player1: name2 }]}, {$or: [{ $expr: { $gt: ['$team1', '$team2'] }}]}]}).then();
+				const gamewon_team2 = await userdata.find({'matchid': match}).countDocuments({$and: [{$or: [{ Player3: name2 }, { Player4: name2 }]}, {$or: [{ $expr: { $gt: ['$team2', '$team1'] }}]}]}).then();
+				if (gamewon_team1 == 2 || gamewon_team2 == 2) {
+				    if (name2 == 'gizn'){
+				        matcheswon[0]++;
+					} else if (name2 == 'David'){
+						matcheswon[1]++;
+					} else if (name2 == 'Phil'){
+                        matcheswon[2]++;
+                    } else if (name2 == 'Khaled'){
+                        matcheswon[3]++;
+                    } else if (name2 == 'Mathias'){
+                        matcheswon[4]++;
+                    } else if (name2 == 'Nico'){
+                        matcheswon[5]++;
+                    } else if (name2 == 'Andres'){
+                        matcheswon[6]++;
+                    } else if (name2 == 'Koen'){
+                        matcheswon[7]++;
+                    } else if (name2 == 'Paco'){
+                        matcheswon[8]++;
+                    } else if (name2 == 'Harle'){
+                        matcheswon[9]++;
+                    }
 				}
-			})
+					console.log(match, name2, "gamewon1: ", gamewon_team1, "gamewon2: ", gamewon_team2, "matcheswon: ", matcheswon)
+				}
+			}).limit(1);
+
 			//team stats
             for (const element1 of results) {
                 let name3 = element1.name;
@@ -358,6 +386,14 @@ router.get('/charts',async function (req, res, next) {
 
             }
         }
+		let sum_matches = 0;
+		for (let i=0;i<matcheswon.length;i++){
+			sum_matches+=matcheswon[i];
+		}
+		console.log(sum_matches);
+
+		console.log("MATCHESWON LATEST: ", matcheswon);
+
         const wontot = JSON.stringify(finalResults)
         playersdata.find().lean()
             .then(function (doc){
@@ -367,7 +403,6 @@ router.get('/charts',async function (req, res, next) {
         });
     });
 });
-
 
 router.post('/register', function(req, res, next) {
     // const id = req.body.id;
