@@ -4,9 +4,20 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
-
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"></script>
 </head>
 
+<script>
+  $(document).ready( function () {
+    var table = $('#generic_stats_table').DataTable({
+    "dom": "lfrti",
+    paging: false,
+    order: [[2, 'desc']],
+  });
+});
+  </script>
 
 <a href="http://tsgd:9000/">
     <img src="http://tsgd:9000/images/logo_white_150px.png" width="80" height="80"  >
@@ -20,75 +31,140 @@
     <button><a href="/register"  >register a Player</a></button>
     <button><a href="/charts"  >show games charts</a></button>
     <button><a href="/index"  >back</a></button>
-
 </nav>
-
-
 
 <div id="container" style="width: 100%;" style="background-color:white;">
     <canvas id="canvas"></canvas>
-
-
-
 </div>
 <br>
-<h1 style="background-color: #ebebeb"> A Simple Stats Table </h1>
-<h2 style="background-color: #ebebeb"> click on the name to know more about the histroy of each Player's Games </h2>
-<table class="table table-bordered" style="background-color: #ebebeb">
-    <tbody>
-    <tr>
-        <th scope="col">#</th>
-    {{#each namearray}}
-    <td><strong><a href="http://tsgd:9000/history/{{this}}">{{this}}</a></strong></td>
-    {{/each}}
-    </tr>
-    <tr>
-        <th scope="col">Total Played</th>
-        {{#each total}}
-            <td><strong>{{this}}</strong></td>
-        {{/each}}
-    </tr>
 
+<h1 style="background-color: #343a40;color: #ebebeb"> Generic stats </h1>
+<h6 style="background-color: #2d3034;color: #ebebeb"> click on the name to know more about the history of each Player's Games </h6>
+<table class="table table-bordered display stripe hover order-column" id="generic_stats_table" style="background-color: #2d3034;color: #ebebeb">
+  <thead>
     <tr>
-        <th scope="col">Won</th>
-        {{#each wonarray}}
-            <td><strong>{{this}}</strong></td>
-        {{/each}}
+      <th>Players</th>
+      <th>Total Played</th>
+      <th>Win/Loose Ratio</th>
+      <th>Won</th>
+      <th>Lost</th>
+      <th>Won %</th>
+      <th>Lost %</th>
+      <th>owned to Zero</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong><a href="http://tsgd:9000/history/{{namearray.[0]}}">{{namearray.[0]}}</a></strong></td>
+      <td>{{total.[0]}}</td>
+      <td>{{wl.[0]}}</td>
+      <td>{{wonarray.[0]}}</td>
+      <td>{{lostarray.[0]}}</td>
+      <td>{{wper.[0]}}</td>
+      <td>{{lper.[0]}}</td>
+      <td>{{st.[0]}}</td>
     </tr>
     <tr>
-        <th scope="col">Lost</th>
-        {{#each lostarray}}
-            <td><strong>{{this}}</strong></td>
-        {{/each}}
+      <td><strong><a href="http://tsgd:9000/history/{{namearray.[1]}}">{{namearray.[1]}}</a></strong></td>
+      <td>{{total.[1]}}</td>
+      <td>{{wl.[1]}}</td>
+      <td>{{wonarray.[1]}}</td>
+      <td>{{lostarray.[1]}}</td>
+      <td>{{wper.[1]}}</td>
+      <td>{{lper.[1]}}</td>
+      <td>{{st.[1]}}</td>
     </tr>
     <tr>
-        <th scope="col">Win percentage</th>
-        {{#each wper}}
-            <td><strong>{{this}} %</strong></td>
-        {{/each}}
+      <td><strong><a href="http://tsgd:9000/history/{{namearray.[2]}}">{{namearray.[2]}}</a></strong></td>
+      <td>{{total.[2]}}</td>
+      <td>{{wl.[2]}}</td>
+      <td>{{wonarray.[2]}}</td>
+      <td>{{lostarray.[2]}}</td>
+      <td>{{wper.[2]}}</td>
+      <td>{{lper.[2]}}</td>
+      <td>{{st.[2]}}</td>
     </tr>
+    <tr>
+      <td><strong><a href="http://tsgd:9000/history/{{namearray.[3]}}">{{namearray.[3]}}</a></strong></td>
+      <td>{{total.[3]}}</td>
+      <td>{{wl.[3]}}</td>
+      <td>{{wonarray.[3]}}</td>
+      <td>{{lostarray.[3]}}</td>
+      <td>{{wper.[3]}}</td>
+      <td>{{lper.[3]}}</td>
+      <td>{{st.[3]}}</td>
+    </tr>
+    <tr>
+      <td><strong><a href="http://tsgd:9000/history/{{namearray.[4]}}">{{namearray.[4]}}</a></strong></td>
+      <td>{{total.[4]}}</td>
+      <td>{{wl.[4]}}</td>
+      <td>{{wonarray.[4]}}</td>
+      <td>{{lostarray.[4]}}</td>
+      <td>{{wper.[4]}}</td>
+      <td>{{lper.[4]}}</td>
+      <td>{{st.[4]}}</td>
+    </tr>
+    <tr>
+      <td><strong><a href="http://tsgd:9000/history/{{namearray.[5]}}">{{namearray.[5]}}</a></strong></td>
+      <td>{{total.[5]}}</td>
+      <td>{{wl.[5]}}</td>
+      <td>{{wonarray.[5]}}</td>
+      <td>{{lostarray.[5]}}</td>
+      <td>{{wper.[5]}}</td>
+      <td>{{lper.[5]}}</td>
+      <td>{{st.[5]}}</td>
+    </tr>
+    <tr>
+      <td><strong><a href="http://tsgd:9000/history/{{namearray.[6]}}">{{namearray.[6]}}</a></strong></td>
+      <td>{{total.[6]}}</td>
+      <td>{{wl.[6]}}</td>
+      <td>{{wonarray.[6]}}</td>
+      <td>{{lostarray.[6]}}</td>
+      <td>{{wper.[6]}}</td>
+      <td>{{lper.[6]}}</td>
+      <td>{{st.[6]}}</td>
+    </tr>
+    <tr>
+      <td><strong><a href="http://tsgd:9000/history/{{namearray.[7]}}">{{namearray.[7]}}</a></strong></td>
+      <td>{{total.[7]}}</td>
+      <td>{{wl.[7]}}</td>
+      <td>{{wonarray.[7]}}</td>
+      <td>{{lostarray.[7]}}</td>
+      <td>{{wper.[7]}}</td>
+      <td>{{lper.[7]}}</td>
+      <td>{{st.[7]}}</td>
+    </tr>
+    <tr>
+      <td><strong><a href="http://tsgd:9000/history/{{namearray.[8]}}">{{namearray.[8]}}</a></strong></td>
+      <td>{{total.[8]}}</td>
+      <td>{{wl.[8]}}</td>
+      <td>{{wonarray.[8]}}</td>
+      <td>{{lostarray.[8]}}</td>
+      <td>{{wper.[8]}}</td>
+      <td>{{lper.[8]}}</td>
+      <td>{{st.[8]}}</td>
+    </tr>
+    <tr>
+      <td><strong><a href="http://tsgd:9000/history/{{namearray.[9]}}">{{namearray.[9]}}</a></strong></td>
+      <td>{{total.[9]}}</td>
+      <td>{{wl.[9]}}</td>
+      <td>{{wonarray.[9]}}</td>
+      <td>{{lostarray.[9]}}</td>
+      <td>{{wper.[9]}}</td>
+      <td>{{lper.[9]}}</td>
+      <td>{{st.[9]}}</td>
+    </tr>
+  </tbody>
+</table
 
-    <tr>
-        <th scope="col">Lose percentage</th>
-        {{#each lper}}
-            <td><strong>{{this}} %</strong></td>
-        {{/each}}
-    </tr>
 
 
-    <tr type="I">
-        <th scope="col">Striche</th>
-        {{#each st}}
-            <td type="I"><strong type="I">{{this}} </strong></td>
-        {{/each}}
-    </tr>
-    </tbody>
-</table>
+
 
 
 <br>
-<h1 style="background-color: #ebebeb"> A Simple Teams_Stats Table </h1>
-<table class="table table-bordered" style="background-color: #ebebeb">
+<h1 style="background-color: #343a40;color: #ebebeb"> Team Stats </h1>
+<table class="table table-bordered" style="background-color: #2d3034;color: #ebebeb">
     <tbody>
 
     <tr>

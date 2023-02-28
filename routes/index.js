@@ -42,9 +42,9 @@ async function get_matchid(){
     const last_matchid_query = await userdata.find({}).select('matchid -_id').sort({'time': -1}).lean().limit(1).then();
     const last_matchid = JSON.parse(last_matchid_query[0]['matchid']);
     //console.log('last_matchid:', last_matchid);
-    const matches = await userdata.find({'matchid': last_matchid}).sort({'time'  : -1}).lean().then();
-    const team1_won = await userdata.find({'matchid': last_matchid}).sort({'tim  e': -1}).lean().countDocuments({ $expr: { $gt: ['$team1', '$team2']}});
-    const team2_won = await userdata.find({'matchid': last_matchid}).sort({'tim  e': -1}).lean().countDocuments({ $expr: { $gt: ['$team2', '$team1']}});
+    const matches = await userdata.find({'matchid': last_matchid}).sort({'time': -1}).lean().then();
+    const team1_won = await userdata.find({'matchid': last_matchid}).sort({'time': -1}).lean().countDocuments({ $expr: { $gt: ['$team1', '$team2']}});
+    const team2_won = await userdata.find({'matchid': last_matchid}).sort({'time': -1}).lean().countDocuments({ $expr: { $gt: ['$team2', '$team1']}});
     //console.log(team1_won, team2_won)
     matchid = last_matchid;
     if (matches.length >= 2 && team1_won == 2 || team2_won == 2) {
@@ -283,39 +283,81 @@ router.get('/charts',async function (req, res, next) {
     const p23los = [];
     const p23lw = [];
     const strich = [];
-
+    const wlratio = [];
+    const matchestotal = [];
+	const matcheswon = Array(10).fill(0); //length of playersdata would be better
+	const matcheslost = [];
 
     const Promise = playersdata.find({ }, async function (err, results) {
         for (const element of results) {
-           // console.log(element.name);
+            //console.log(element.name);
             let name2 = element.name;
             finalResults.push(name2);
 
-            const khaledwon1 = await userdata.countDocuments({$and: [{$or: [{ Player2: name2 }, { Player1: name2 }]}, {$or: [{ $expr: { $gt: ['$team1', '$team2'] }}]}]});
-            const khaledwon2 = await userdata.countDocuments({$and: [{$or: [{ Player3: name2 }, { Player4: name2 }]}, {$or: [{ $expr: { $gt: ['$team2', '$team1'] }}]}]});
+            //generic game stats
+            const gameswon_team1 = await userdata.countDocuments({$and: [{$or: [{ Player2: name2 }, { Player1: name2 }]}, {$or: [{ $expr: { $gt: ['$team1', '$team2'] }}]}]});
+            const gameswon_team2 = await userdata.countDocuments({$and: [{$or: [{ Player3: name2 }, { Player4: name2 }]}, {$or: [{ $expr: { $gt: ['$team2', '$team1'] }}]}]});
             const strich1 = await userdata.countDocuments({$and: [{$or: [{ Player2: name2 }, { Player1: name2 }]}, { $expr: { $eq: ['$team2', '0'] }}]});
             const strich2 = await userdata.countDocuments({$and: [{$or: [{ Player3: name2 }, { Player4: name2 }]}, { $expr: { $eq: ['$team1', '0'] }}]});
             const strichtotal=strich1+strich2;
             strich.push(strichtotal);
 
-            const khaledtotalwon= khaledwon1+khaledwon2;
-            wonResults.push(khaledtotalwon);
+            const gamestotalwon= gameswon_team1+gameswon_team2;
+            wonResults.push(gamestotalwon);
 
-            const khaledlose1 = await userdata.countDocuments({$and: [{$or: [{ Player2: name2 }, { Player1: name2 }]}, {$or: [{ $expr: { $lt: ['$team1', '$team2'] }}]}]});
-            const khaledlose2 = await userdata.countDocuments({$and: [{$or: [{ Player3: name2 }, { Player4: name2 }]}, {$or: [{ $expr: { $lt: ['$team2', '$team1'] }}]}]});
-            const khaledtotallose= (khaledlose1+khaledlose2);
-            lostResults.push(-khaledtotallose);
+            const gameslost_team1 = await userdata.countDocuments({$and: [{$or: [{ Player2: name2 }, { Player1: name2 }]}, {$or: [{ $expr: { $lt: ['$team1', '$team2'] }}]}]});
+            const gameslost_team2 = await userdata.countDocuments({$and: [{$or: [{ Player3: name2 }, { Player4: name2 }]}, {$or: [{ $expr: { $lt: ['$team2', '$team1'] }}]}]});
+            const gamestotallost = (gameslost_team1+gameslost_team2);
+            lostResults.push(-gamestotallost);
 
-            const khaledtotal =khaledtotallose+khaledtotalwon;
-            const wonpers=(khaledtotalwon/(khaledtotalwon+khaledtotallose))*100;
+            //const khaledtotal =khaledtotallose+khaledtotalwon; //not in use?
+            const wonpers=(gamestotalwon/(gamestotalwon+gamestotallost))*100;
             persentagew.push(wonpers.toFixed(1));
-            const lostpers=(khaledtotallose/(khaledtotalwon+khaledtotallose))*100;
+            const lostpers=(gamestotallost/(gamestotalwon+gamestotallost))*100;
             persentagel.push(lostpers.toFixed(1));
 
-            const tota=khaledtotalwon+khaledtotallose;
+            const tota=gamestotalwon+gamestotallost;
             totalplayed.push(tota);
-           // console.log(khaledtotalwon)
-           // console.log(khaledtotal);
+
+            const ratio=gamestotalwon/gamestotallost;
+            wlratio.push(ratio);
+
+            const matchstats = userdata.find({}, async function (err, results2) {
+
+            const last_matchid_query = await userdata.find({}).select('matchid -_id').sort({'time': -1}).lean().limit(1).then();
+            const last_matchid = JSON.parse(last_matchid_query[0]['matchid']);
+			for (let match=1;match<=last_matchid;match++) {
+
+				const gamewon_team1 = await userdata.find({'matchid': match}).countDocuments({$and: [{$or: [{ Player2: name2 }, { Player1: name2 }]}, {$or: [{ $expr: { $gt: ['$team1', '$team2'] }}]}]}).then();
+				const gamewon_team2 = await userdata.find({'matchid': match}).countDocuments({$and: [{$or: [{ Player3: name2 }, { Player4: name2 }]}, {$or: [{ $expr: { $gt: ['$team2', '$team1'] }}]}]}).then();
+				if (gamewon_team1 == 2 || gamewon_team2 == 2) {
+				    if (name2 == 'gizn'){
+				        matcheswon[0]++;
+					} else if (name2 == 'David'){
+						matcheswon[1]++;
+					} else if (name2 == 'Phil'){
+                        matcheswon[2]++;
+                    } else if (name2 == 'Khaled'){
+                        matcheswon[3]++;
+                    } else if (name2 == 'Mathias'){
+                        matcheswon[4]++;
+                    } else if (name2 == 'Nico'){
+                        matcheswon[5]++;
+                    } else if (name2 == 'Andres'){
+                        matcheswon[6]++;
+                    } else if (name2 == 'Koen'){
+                        matcheswon[7]++;
+                    } else if (name2 == 'Paco'){
+                        matcheswon[8]++;
+                    } else if (name2 == 'Harle'){
+                        matcheswon[9]++;
+                    }
+				}
+					console.log(match, name2, "gamewon1: ", gamewon_team1, "gamewon2: ", gamewon_team2, "matcheswon: ", matcheswon)
+				}
+			}).limit(1);
+
+			//team stats
             for (const element1 of results) {
                 let name3 = element1.name;
                 if(name2 !=name3) {
@@ -344,22 +386,23 @@ router.get('/charts',async function (req, res, next) {
 
             }
         }
+		let sum_matches = 0;
+		for (let i=0;i<matcheswon.length;i++){
+			sum_matches+=matcheswon[i];
+		}
+		console.log(sum_matches);
+
+		console.log("MATCHESWON LATEST: ", matcheswon);
+
         const wontot = JSON.stringify(finalResults)
         playersdata.find().lean()
             .then(function (doc){
-                res.render('charts', {item:doc,title: 'gizn&Khaled Kicker Project', condition: true, namearray: finalResults,wonarray:wonResults,lostarray:lostResults,wper:persentagew,lper:persentagel,total:totalplayed,pn2:n2names,gwin:p23wons,glos:p23los,glw:p23lw,st:strich
+                res.render('charts', {item:doc,title: 'gizn&Khaled Kicker Project', condition: true, namearray: finalResults,wonarray:wonResults,lostarray:lostResults,wper:persentagew,lper:persentagel,total:totalplayed,wl:wlratio,pn2:n2names,gwin:p23wons,glos:p23los,glw:p23lw,st:strich
             });
         //  khaledwon:khaledtotalwon,khaledlost:khaledtotallose,totalg:khaledtotal,
         });
-
-
     });
-
-
-
-
 });
-
 
 router.post('/register', function(req, res, next) {
     // const id = req.body.id;
