@@ -204,7 +204,7 @@ router.post('/reinsert',async function(req, res, next) {
         time:datetime,
         team1: req.body.team1,
         team2: req.body.team2,
-        matchid:matchid,
+        //matchid:matchid,
     };
 
 

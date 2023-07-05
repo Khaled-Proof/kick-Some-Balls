@@ -151,12 +151,12 @@
 
                         <div class="row">
                             <div class="col">
-                        <a href="http://localhost:9000/update/{{this._id}}" class="btn btn-outline-secondary">Update</a>
+                        <a href="/update/{{this._id}}" class="btn btn-outline-secondary">Update</a>
                             </div>
                             <div class="col">
-                                <a href="http://localhost:9000/reinsert/{{this._id}}" class="btn btn-outline-secondary">reinsert</a>
+                                <a href="http://tsgd:9000/reinsert/{{this._id}}" class="btn btn-outline-secondary">reinsert</a>
                             </div>
-                        <form action="/delete" method="post">
+                        <form action="http://tsgd:9000/delete" method="post">
                             <input name="id" value={{this._id}} hidden>
                             <button type="submit" class="btn btn-outline-info">DELETE</button>
                         </form>
