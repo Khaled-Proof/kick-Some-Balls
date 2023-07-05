@@ -24,8 +24,15 @@
         <nav class="navbar navbar-dark bg-dark">
 
                 <button><a href="/register"  >register a Player</a></button>
-                <button><a href="/charts"  >show games charts</a></button>
-            <button><a href="/index"  >back</a></button>
+
+            <form action="/charts" method="post">
+                <input  type="date" id="time" name="time" >
+
+                <button type="submit" class="btn btn-outline-info">chose Date to show the stats</button>
+            </form>
+
+
+            <button><a href="/index">back</a></button>
 
         </nav>
 

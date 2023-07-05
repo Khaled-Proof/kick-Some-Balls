@@ -1,18 +1,9 @@
 const express = require('express');
 const router = express.Router();
-//const mongo = require('mongodb');
 const assert = require('assert');
-//const {ObjectId} = require("mongodb");
-//const {MongoClient} = require("mongodb");
-//const mongo = require('mongodb').MongoClient;
-//const mongoid = require('mongodb').ObjectId;
 const chart =require('chart.js');
 const {CanvasRenderService} = require('chartjs-node-canvas');
-//const db = require('monk')('localhost:27017/test')
-//const userdata = db.get('user-data');
 const inetract = require('interact.js');
-
-//const url = 'mongodb://localhost:27017/test'
 const mongoose = require("mongoose");
 const Handlebars = require("handlebars");
 const path = require("path");
@@ -62,7 +53,7 @@ router.get('/register', function(req, res, next) {
 });
 router.get('/index', function(req, res, next) {
 
-    const matchid = get_matchid();
+    //const matchid = get_matchid();
 
     Handlebars.registerHelper('selected', function(option, value){
         if (option === value) {
@@ -80,7 +71,7 @@ router.get('/index', function(req, res, next) {
 });
 router.get('/', async function(req, res, next) {
 
-    const matchid = get_matchid();
+    //const matchid = get_matchid();
 
     Handlebars.registerHelper('selected', function(option, value){
         if (option === value) {
@@ -100,7 +91,7 @@ router.get('/', async function(req, res, next) {
 
 router.get('/get-data', function (req, res, next) {
 
-    const matchid = get_matchid();
+    //const matchid = get_matchid();
     // in the line belwo you can write the condtions of the data you wanna retrive in dthe finde funtion
     Handlebars.registerHelper('selected', function(option, value){
         if (option === value) {
@@ -130,7 +121,7 @@ router.post('/insert', async function(req, res, next) {
         time:datetime,
         team1: req.body.team1,
         team2: req.body.team2,
-        matchid:matchid,
+       // matchid:matchid,
     };
     const data=new userdata(item);
     data.save();
@@ -213,7 +204,7 @@ router.post('/reinsert',async function(req, res, next) {
         time:datetime,
         team1: req.body.team1,
         team2: req.body.team2,
-        matchid:matchid,
+        //matchid:matchid,
     };
 
 
@@ -264,13 +255,14 @@ router.get('/history/:Player2',async function (req, res, next) {
         .then(function (doc) {
             res.render('history', {item: doc, title: 'gizn&Khaled Kicker Project',count1:count,won:totalwon,lost:totallose,wonpresent:wonperecent1,lospresent:losperecent1, condition: true,test1:name, array: [1, 2, 3, 4]});
         });
-
 });
 
 
 
-router.get('/charts',async function (req, res, next) {
+router.post('/charts',async function (req, res, next) {
 //khaled start
+    const date= req.body.time;
+
     const finalResults = [];
     const wonResults = [];
     const lostResults = [];
@@ -283,26 +275,31 @@ router.get('/charts',async function (req, res, next) {
     const p23los = [];
     const p23lw = [];
     const strich = [];
+    const stricher=[];
+    const teamstrich=[];
+    const dates=[]
 
 
     const Promise = playersdata.find({ }, async function (err, results) {
         for (const element of results) {
-           // console.log(element.name);
             let name2 = element.name;
             finalResults.push(name2);
 
-            const khaledwon1 = await userdata.countDocuments({$and: [{$or: [{ Player2: name2 }, { Player1: name2 }]}, {$or: [{ $expr: { $gt: ['$team1', '$team2'] }}]}]});
-            const khaledwon2 = await userdata.countDocuments({$and: [{$or: [{ Player3: name2 }, { Player4: name2 }]}, {$or: [{ $expr: { $gt: ['$team2', '$team1'] }}]}]});
-            const strich1 = await userdata.countDocuments({$and: [{$or: [{ Player2: name2 }, { Player1: name2 }]}, { $expr: { $eq: ['$team2', '0'] }}]});
-            const strich2 = await userdata.countDocuments({$and: [{$or: [{ Player3: name2 }, { Player4: name2 }]}, { $expr: { $eq: ['$team1', '0'] }}]});
+            const khaledwon1 = await userdata.countDocuments({$and: [{$or: [{ Player2: name2 }, { Player1: name2 }]}, {$or: [{ $expr: { $gt: ['$team1', '$team2'] }}]}, { $expr: { $gt: ['$time', date] }}]});
+            const khaledwon2 = await userdata.countDocuments({$and: [{$or: [{ Player3: name2 }, { Player4: name2 }]}, {$or: [{ $expr: { $gt: ['$team2', '$team1'] }}]}, { $expr: { $gt: ['$time', date] }}]});
+            const strich1 = await userdata.countDocuments({$and: [{$or: [{ Player2: name2 }, { Player1: name2 }]}, { $expr: { $eq: ['$team2', '0'] }}, { $expr: { $gt: ['$time', date] }}]});
+            const strich2 = await userdata.countDocuments({$and: [{$or: [{ Player3: name2 }, { Player4: name2 }]}, { $expr: { $eq: ['$team1', '0'] }}, { $expr: { $gt: ['$time', date] }}]});
+           // const strichmate = await userdata.countDocuments({$and: [{$or: [{ Player2: name2 }, { Player1: name2 }]}, { $expr: { $eq: ['$team2', '0'] }}]});
+
             const strichtotal=strich1+strich2;
+            stricher.push(name2)
             strich.push(strichtotal);
 
             const khaledtotalwon= khaledwon1+khaledwon2;
             wonResults.push(khaledtotalwon);
 
-            const khaledlose1 = await userdata.countDocuments({$and: [{$or: [{ Player2: name2 }, { Player1: name2 }]}, {$or: [{ $expr: { $lt: ['$team1', '$team2'] }}]}]});
-            const khaledlose2 = await userdata.countDocuments({$and: [{$or: [{ Player3: name2 }, { Player4: name2 }]}, {$or: [{ $expr: { $lt: ['$team2', '$team1'] }}]}]});
+            const khaledlose1 = await userdata.countDocuments({$and: [{$or: [{ Player2: name2 }, { Player1: name2 }]}, {$or: [{ $expr: { $lt: ['$team1', '$team2'] }}]},{ $expr: { $gt: ['$time', date] }}]});
+            const khaledlose2 = await userdata.countDocuments({$and: [{$or: [{ Player3: name2 }, { Player4: name2 }]}, {$or: [{ $expr: { $lt: ['$team2', '$team1'] }}]}, { $expr: { $gt: ['$time', date] }}]});
             const khaledtotallose= (khaledlose1+khaledlose2);
             lostResults.push(-khaledtotallose);
 
@@ -314,40 +311,64 @@ router.get('/charts',async function (req, res, next) {
 
             const tota=khaledtotalwon+khaledtotallose;
             totalplayed.push(tota);
-           // console.log(khaledtotalwon)
-           // console.log(khaledtotal);
             for (const element1 of results) {
                 let name3 = element1.name;
                 if(name2 !=name3) {
                     n23=name2+' & '+name3;
                     n2names.push(n23);
                    // n3names.push(name3);
-                    const spielewon1 = await userdata.countDocuments({$and: [{$and: [{Player2: name2}, {Player1: name3}]}, {$or: [{$expr: {$gt: ['$team1', '$team2']}}]}]});
-                    const spielewon2 = await userdata.countDocuments({$and: [{$and: [{Player1: name2}, {Player2: name3}]}, {$or: [{$expr: {$gt: ['$team1', '$team2']}}]}]});
-                    const spielewon3 = await userdata.countDocuments({$and: [{$and: [{Player3: name2}, {Player4: name3}]}, {$or: [{$expr: {$gt: ['$team2', '$team1']}}]}]});
-                    const spielewon4 = await userdata.countDocuments({$and: [{$and: [{Player4: name2}, {Player3: name3}]}, {$or: [{$expr: {$gt: ['$team2', '$team1']}}]}]});
+                    const spielewon1 = await userdata.countDocuments({$and: [{$and: [{Player2: name2}, {Player1: name3}]}, {$or: [{$expr: {$gt: ['$team1', '$team2']}}]}, { $expr: { $gt: ['$time', date] }}]});
+                    const spielewon2 = await userdata.countDocuments({$and: [{$and: [{Player1: name2}, {Player2: name3}]}, {$or: [{$expr: {$gt: ['$team1', '$team2']}}]}, { $expr: { $gt: ['$time', date] }}]});
+                    const spielewon3 = await userdata.countDocuments({$and: [{$and: [{Player3: name2}, {Player4: name3}]}, {$or: [{$expr: {$gt: ['$team2', '$team1']}}]}, { $expr: { $gt: ['$time', date] }}]});
+                    const spielewon4 = await userdata.countDocuments({$and: [{$and: [{Player4: name2}, {Player3: name3}]}, {$or: [{$expr: {$gt: ['$team2', '$team1']}}]}, { $expr: { $gt: ['$time', date] }}]});
                     const gesamtwin=spielewon1+spielewon2+spielewon3+spielewon4;
                     p23wons.push(gesamtwin);
 
-                    const spielelos1 = await userdata.countDocuments({$and: [{$and: [{Player2: name2}, {Player1: name3}]}, {$or: [{$expr: {$lt: ['$team1', '$team2']}}]}]});
-                    const spielelos2 = await userdata.countDocuments({$and: [{$and: [{Player1: name2}, {Player2: name3}]}, {$or: [{$expr: {$lt: ['$team1', '$team2']}}]}]});
-                    const spielelos3 = await userdata.countDocuments({$and: [{$and: [{Player3: name2}, {Player4: name3}]}, {$or: [{$expr: {$lt: ['$team2', '$team1']}}]}]});
-                    const spielelos4 = await userdata.countDocuments({$and: [{$and: [{Player4: name2}, {Player3: name3}]}, {$or: [{$expr: {$lt: ['$team2', '$team1']}}]}]});
+                    const spielelos1 = await userdata.countDocuments({$and: [{$and: [{Player2: name2}, {Player1: name3}]}, {$or: [{$expr: {$lt: ['$team1', '$team2']}}]}, { $expr: { $gt: ['$time', date] }}]});
+                    const spielelos2 = await userdata.countDocuments({$and: [{$and: [{Player1: name2}, {Player2: name3}]}, {$or: [{$expr: {$lt: ['$team1', '$team2']}}]}, { $expr: { $gt: ['$time', date] }}]});
+                    const spielelos3 = await userdata.countDocuments({$and: [{$and: [{Player3: name2}, {Player4: name3}]}, {$or: [{$expr: {$lt: ['$team2', '$team1']}}]}, { $expr: { $gt: ['$time', date] }}]});
+                    const spielelos4 = await userdata.countDocuments({$and: [{$and: [{Player4: name2}, {Player3: name3}]}, {$or: [{$expr: {$lt: ['$team2', '$team1']}}]}, { $expr: { $gt: ['$time', date] }}]});
                     const gesamtlos=spielelos1+spielelos2+spielelos3+spielelos4;
-                    p23los.push(gesamtlos);
 
+                    p23los.push(gesamtlos);
                     const lwtotal=gesamtlos+gesamtwin;
                     p23lw.push(lwtotal);
 
-                   // console.log(gesamtwin);
-                }
+                    //Team Striche
+                    const teamstrich1 = await userdata.find({$and: [{$and: [{Player2: name2}, {Player1: name3}]}, { $expr: { $eq: ['$team2', '0'] }}, { $expr: { $gt: ['$time', date] }}]});
+                    const teamstrich2 = await userdata.find({$and: [{$and: [{Player1: name2}, {Player2: name3}]}, { $expr: { $eq: ['$team2', '0'] }}, { $expr: { $gt: ['$time', date] }}]});
+                    const teamstrich3 = await userdata.find({$and: [{$and: [{Player3: name2}, {Player4: name3}]}, { $expr: { $eq: ['$team1', '0'] }}, { $expr: { $gt: ['$time', date] }}]});
+                    const teamstrich4 = await userdata.find({$and: [{$and: [{Player4: name2}, {Player3: name3}]}, { $expr: { $eq: ['$team1', '0'] }}, { $expr: { $gt: ['$time', date] }}]});
+                    const totalstriche=[teamstrich1,teamstrich2,teamstrich3,teamstrich4]
+                   // const le =Object.values(totalstriche);
+                    totalstriche.forEach(time => {
+                        for (let key in time) {
+                            if(date){
+                            if(new Date(time[key].time)>new Date(date)){
+                            teamstrich.push((time[key].time).toLocaleString()+'\n'+time[key].Player1+' & '+time[key].Player2+' VS '+time[key].Player3+' & '+time[key].Player4+'\n'+time[key].team1+'-'+time[key].team2+'\n'+'xxxxxxxxxxxxxxxxxxxxxxx'+'\n')
+                        }
+                            }else{
+                                teamstrich.push((time[key].time).toLocaleString()+'\n'+time[key].Player1+' & '+time[key].Player2+' VS '+time[key].Player3+' & '+time[key].Player4+'\n'+time[key].team1+'-'+time[key].team2+'\n'+'xxxxxxxxxxxxxxxxxxxxxxx'+'\n')
+                            }
+                        }
+                    }
 
+                    )
+
+
+
+
+                }
             }
+        }
+        const totaldates=await  userdata.find( { time: { $gt: date } } );
+        for(let key in totaldates) {
+            dates.push((totaldates[key].time).toLocaleString());
         }
         const wontot = JSON.stringify(finalResults)
         playersdata.find().lean()
             .then(function (doc){
-                res.render('charts', {item:doc,title: 'gizn&Khaled Kicker Project', condition: true, namearray: finalResults,wonarray:wonResults,lostarray:lostResults,wper:persentagew,lper:persentagel,total:totalplayed,pn2:n2names,gwin:p23wons,glos:p23los,glw:p23lw,st:strich
+                res.render('charts', {item:doc,title: 'gizn&Khaled Kicker Project', condition: true, namearray: finalResults,wonarray:wonResults,lostarray:lostResults,wper:persentagew,lper:persentagel,total:totalplayed,pn2:n2names,gwin:p23wons,glos:p23los,glw:p23lw,st:strich,stt:teamstrich,date:date,dates:dates
             });
         //  khaledwon:khaledtotalwon,khaledlost:khaledtotallose,totalg:khaledtotal,
         });
