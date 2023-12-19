@@ -28,6 +28,13 @@ const playersSchema = new Schema({
 },{collection:'players-data'});
 const playersdata=mongoose.model('Playersdata',playersSchema);
 
+//gamer Schema
+const gamersSchema = new Schema({
+    name: {type:String},
+},{collection:'gamers'});
+const gamers=mongoose.model('gamers',gamersSchema);
+
+
 //function to implement the matchid logic
 async function get_matchid(){
     const last_matchid_query = await userdata.find({}).select('matchid -_id').sort({'time': -1}).lean().limit(1).then();
@@ -398,6 +405,22 @@ router.post('/register', function(req, res, next) {
 
 });
 
+
+//register a gamer
+router.post('/registergamer', function(req, res, next) {
+    // const id = req.body.id;
+
+    const players = {
+        name: req.body.gamer,
+    };
+    const data=new gamers(players);
+    data.save();
+
+    res.redirect('get-players' );
+
+});
+
+
 router.get('/get-players', function (req, res, next) {
     // in the line belwo you can write the condtions of the data you wanna retrive in dthe finde funtion
     playersdata.find().lean()
@@ -405,6 +428,53 @@ router.get('/get-players', function (req, res, next) {
             res.render('register',{item:doc,title: 'gizn&Khaled Kicker Project'});
         });
 });
+
+//Gamer funktions
+function generateUniquePairs(players) {
+    const pairs = [];
+
+    for (let i = 0; i < players.length - 1; i++) {
+        for (let j = i + 1; j < players.length; j++) {
+            pairs.push([players[i].name, players[j].name]);
+        }
+    }
+
+    return pairs;
+}
+
+// Function to create matches from unique pairs
+function createMatches(uniquePairs) {
+    const matches = [];
+
+    while (uniquePairs.length > 0) {
+        const team1 = uniquePairs.shift();
+        const team2Index = uniquePairs.findIndex(pair =>
+            !pair.some(player => team1.includes(player))
+        );
+
+        if (team2Index !== -1) {
+            const team2 = uniquePairs.splice(team2Index, 1)[0];
+            matches.push(`${team1.join(' & ')} vs ${team2.join(' & ')}`);
+        }
+    }
+
+    return matches;
+}
+router.get('/creatematches', function (req, res, next) {
+    // Fetch players from MongoDB using Mongoose
+    gamers.find({}, 'name').lean().exec(function (err, players) {
+        if (err) {
+            console.error(err);
+            res.status(500).send('Error fetching players data');
+        } else {
+            const uniquePairs = generateUniquePairs(players);
+            const matches = createMatches(uniquePairs);
+            res.render('index', { items: matches, title: 'Gizn & Khaled Kicker Project' });
+        }
+    });
+});
+
+
 
 // in dieser Funktion kann man einen Spieler löschen
 //* start of delete
