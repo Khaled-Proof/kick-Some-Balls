@@ -7,6 +7,7 @@
   },
   "dependencies": {
     "bluebird": "^3.7.2",
+    "bootstrap": "^5.3.3",
     "canvasjs": "^1.8.3",
     "chart.js": "^3.7.1",
     "chartjs-node-canvas": "^4.1.6",

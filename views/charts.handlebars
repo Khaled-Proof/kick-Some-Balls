@@ -3,13 +3,13 @@
     <title>{{title}}</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 
 </head>
 
 
-<a href="http://tsgd:9000/">
-    <img src="http://tsgd:9000/images/logo_white_150px.png" width="80" height="80"  >
+<a href="{{BaseUrl}}/">
+    <img src="{{BaseUrl}}/images/logo_white_150px.png" width="80" height="80"  >
 </a>
 <i style="color: #3dd5f3">Welcome to the {{title}}</i>
 <br>
@@ -28,8 +28,7 @@
 <div id="container" style="width: 100%;" style="background-color:white;">
     <canvas id="canvas"></canvas>
 
-
-
+    <h1 style="background-color: #ebebeb"> the date is : {{this.date}} </h1>
 </div>
 <br>
 <h1 style="background-color: #ebebeb"> A Simple Stats Table </h1>
@@ -39,7 +38,7 @@
     <tr>
         <th scope="col">#</th>
     {{#each namearray}}
-    <td><strong><a href="http://tsgd:9000/history/{{this}}">{{this}}</a></strong></td>
+    <td><strong><a href="{{BaseUrl}}/history/{{this}}">{{this}}</a></strong></td>
     {{/each}}
     </tr>
     <tr>
@@ -86,6 +85,45 @@
 </table>
 
 
+
+<h2 style="background-color: #ebebeb"> Stricher Board </h2>
+<table class="table table-bordered" style="background-color: #ebebeb">
+    <tbody>
+    <tr>
+        <th scope="col">#</th>
+        {{#each namearray}}
+            <td><strong><a href="{{BaseUrl}}/history/{{this}}">{{this}}</a></strong></td>
+        {{/each}}
+    </tr>
+    <tr type="I">
+        <th scope="col">Striche</th>
+        {{#each st}}
+            <td type="I"><strong type="I">{{this}} </strong></td>
+        {{/each}}
+
+    </tr>
+    </tbody>
+</table>
+    <h1 style="background-color: #ebebeb"> A Simple Strich Teams_Stats Table </h1>
+    <table class="table table-bordered" style="background-color: #ebebeb">
+        <tbody>
+        <th scope="col">Striche</th>
+        {{#each stt}}
+            <tr>
+            <td><strong style="color: black">{{this}}</a></strong></td>
+            </tr>
+        {{/each}}
+
+
+
+
+
+
+
+        </tbody>
+</table>
+
+
 <br>
 <h1 style="background-color: #ebebeb"> A Simple Teams_Stats Table </h1>
 <table class="table table-bordered" style="background-color: #ebebeb">
@@ -98,26 +136,26 @@
         {{/each}}
     </tr>
 
-
+    <tr>
     <th scope="col">total played</th>
     {{#each glw}}
         <td><strong>{{this}}</a></strong></td>
     {{/each}}
     </tr>
 
-
+    <tr>
     <th scope="col">Wins</th>
     {{#each gwin}}
         <td><strong style="color: green">{{this}}</a></strong></td>
     {{/each}}
     </tr>
-
+    <tr>
     <th scope="col">Loses</th>
     {{#each glos}}
         <td><strong style="color: #c82333">{{this}}</a></strong></td>
     {{/each}}
-    </tr>
 
+    </tr>
 
 
     </tbody>
@@ -125,66 +163,66 @@
 </div>
 <br>
 
-<script>
-    const barChartData = {
-        labels: [{{#each namearray}}'{{this}}',{{/each}}],
-        datasets: [
+    <script>
+        const barChartData = {
+            labels: [{{#each namearray}}'{{this}}',{{/each}}],
+            datasets: [
 
-            {
-                label: "Won",
-                yAxisID: 'bar-stack',
-                backgroundColor: "lightgreen",
-                borderColor: "green",
-                borderWidth: 1,
-                stack: 'now',
-                data: [{{wonarray}}]
-            },
-            {
-                label: "Lost",
-                yAxisID: "bar-stack",
-                backgroundColor: "pink",
-                borderColor: "red",
-                borderWidth: 1,
-                stack: 'now',
-                data: [{{lostarray}}]
-            },
-
-        ]
-    };
-
-    const chartOptions = {
-        responsive: true,
-        scales: {
-            yAxes: [
                 {
-                    id: "bar-stack",
-                    position: "left",
-                    stacked: true,
+                    label: "Won",
+                    yAxisID: 'bar-stack',
+                    backgroundColor: "lightgreen",
+                    borderColor: "green",
+                    borderWidth: 1,
+                    stack: 'now',
+                    data: [{{wonarray}}]
+                },
+                {
+                    label: "Lost",
+                    yAxisID: "bar-stack",
+                    backgroundColor: "pink",
+                    borderColor: "red",
+                    borderWidth: 1,
+                    stack: 'now',
+                    data: [{{lostarray}}]
+                },
+
+            ]
+        };
+
+        const chartOptions = {
+            responsive: true,
+            scales: {
+                yAxes: [
+                    {
+                        id: "bar-stack",
+                        position: "left",
+                        stacked: true,
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }],
+                x: {
                     ticks: {
-                        beginAtZero: true
-                    }
-                }],
-            x: {
-                ticks: {
-                    color: 'white', beginAtZero: true,
-                    font: {
-                        size: 18,
+                        color: 'white', beginAtZero: true,
+                        font: {
+                            size: 18,
+                        }
                     }
                 }
+
             }
-
         }
-    }
 
-    window.onload = function() {
-        const ctx = document.getElementById("canvas").getContext("2d");
-        window.myBar = new Chart(ctx, {
-            type: "bar",
-            data: barChartData,
-            options: chartOptions,
+        window.onload = function() {
+            const ctx = document.getElementById("canvas").getContext("2d");
+            window.myBar = new Chart(ctx, {
+                type: "bar",
+                data: barChartData,
+                options: chartOptions,
 
-        });
-    };
+            });
+        };
 
 
-</script>
+    </script>

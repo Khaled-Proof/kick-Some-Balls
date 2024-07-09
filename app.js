@@ -21,7 +21,6 @@ app.engine('handlebars', handlebars.engine);
 app.set('view engine', 'handlebars');
 app.set('views', path.join(__dirname, 'views'));
 
-
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -32,6 +31,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/images', express.static('images'));
 app.use('/images', express.static(path.join(__dirname,'images')));
 app.use('/stylesheets', express.static(path.join(__dirname,'stylesheets')));
+app.use('/boostrap', express.static('boostrap'));
+
 
 
 app.use(expressSession({secret:'max',saveUninitialized:false,resave:false}));

@@ -7,9 +7,9 @@
 
 </head>
 
-<a href="http://tsgd:9000/">
+<a href="{{BaseUrl}}/">
 
-    <img src="http://tsgd:9000/images/logo_white_150px.png" width="80" height="80"  >
+    <img src="{{BaseUrl}}/images/logo_white_150px.png" width="80" height="80"  >
 </a>
 <i style="color: #3dd5f3">Welcome to the {{title}}</i>
 <br>
@@ -23,6 +23,7 @@
         <nav class="navbar navbar-dark bg-dark">
 
             <button><a href="/register"  >Register a player</a></button>
+            <button><a href="/register"  >Register a gamer</a></button>
             <button><a href="/charts"  >Show games charts</a></button>
             <button><a href="/index"  >back</a></button>
 
@@ -50,9 +51,12 @@
                 <button type="submit" class="btn btn-primary">Register a player</button>
                 <br>
             </form>
+
+
         </div>
 
-           <div class="row">
+
+        <div class="row">
             <div class="col-sm">
             <form action="/registergamer" method="post" >
                 <div class="row">
@@ -101,6 +105,8 @@
 
                 {{/each}}
             </ul>
+
+
             </div>
 
 

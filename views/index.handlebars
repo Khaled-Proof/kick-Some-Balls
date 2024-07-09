@@ -7,10 +7,18 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
     <script src="javascripts/mousewheel.js"></script>
     <script src="javascripts/unique_input.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <script src="/javascripts/timer.js"></script>
+    <style src="/stylesheets/counter.css"></style>
+
+
 </head>
 
-<a href="http://tsgd:9000/">
-    <img src="http://tsgd:9000/images/logo_white_150px.png" width="80" height="80"  >
+<a href="{{BaseUrl}}/">
+    <img src="{{BaseUrl}}/images/logo_white_150px.png" width="80" height="80"  >
 </a>
 <i style="color: #3dd5f3">Welcome to the {{title}}</i>
 <br>
@@ -25,14 +33,31 @@
 
                 <button><a href="/register"  >register a Player</a></button>
 
+
             <form action="/charts" method="post">
                 <input  type="date" id="time" name="time" >
 
                 <button type="submit" class="btn btn-outline-info">chose Date to show the stats</button>
             </form>
+            <div class="dropdown show">
+                <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Charts
+                </a>
+
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                    <a class="dropdown-item" href="#">   <form action="/charts1" method="post">
+                        <button type="submit" class="btn btn-outline-info">show one month</button>
+                    </form></a>
+                    <a class="dropdown-item" href="#"><form action="/charts2" method="post">
+                        <button type="submit" class="btn btn-outline-info">show 2 month</button>
+                    </form></a>
+                    <a class="dropdown-item" href="#"> <form action="/charts3" method="post">
+                        <button type="submit" class="btn btn-outline-info">show 3 month</button>
+                    </form></a>
+                </div>
+            </div>
 
 
-            <button><a href="/index">back</a></button>
 
         </nav>
 
@@ -41,14 +66,25 @@
         <div class="col-sm">
             <h3>New Match</h3>
 
+
+<br>
+            <button class="btn btn-outline-info btn-lg" type="button" id="toggleButton" onclick="run()">Start match</button>
 <br>
             <form action="/insert" method="post" >
+                <div class="card-block">
+                    <div id="countdown">
+                        <span  style="font-size: 40px" id="timerInfo" class="timer bg-success" name="timerInfo"></span>
+                        <span  style="font-size: 40px" id="liveCounter" class="timer bg-info"></span>
+                    </div>
+                </div>
 
-                <img src="http://tsgd:9000/images/ts_pro.png" width="100" height="100"  alt="">
+                <img src="{{BaseUrl}}/images/ts_pro.png" width="100" height="100"  alt="">
 
                 <h3 style="color: #3dd5f3">Team 1</h3>
 
                 <div class="row">
+                    <input id="duration"  name="duration" type="hidden">
+
                     <br>
                     <div class="col-sm">
                         <div class="form-group" >
@@ -76,7 +112,7 @@
                                 </select>
                         </div></div></div>
                 <br>
-                <img src="http://tsgd:9000/images/ts_pro.png" width="100" height="100"  alt="">
+                <img src="{{BaseUrl}}/images/ts_pro.png" width="100" height="100"  alt="">
 
                 <h3 style="color:red">Team 2</h3>
                 <div class="row">
@@ -125,9 +161,10 @@
                         </div>
                     </div></div>
                 <br>
-                <button type="submit" class="btn btn-primary">insert data</button>
+                <button type="submit" class="btn btn-primary" onclick="run()">insert data</button>
                 <br>
             </form>
+
 
 
         </div>
@@ -146,15 +183,17 @@
 
                     <article class="list-group-item" role="alert" style="border-radius: 7px">
 
-                        <div><a href="http://tsgd:9000/history/{{this.Player1}}" >{{this.Player1}}</a> + <a href="http://tsgd:9000/history/{{this.Player2}}" >{{this.Player2}}</a> <strong>({{this.team1}})</strong> <strong style="color:red" >  vs  </strong><a href="http://tsgd:9000/history/{{this.Player3}}" >{{this.Player3}}</a> + <a href="http://tsgd:9000/history/{{this.Player4}}" >{{this.Player4}}</a> <strong>({{this.team2}})</strong></div>
+                        <div><a href="{{BaseUrl}}/history/{{this.Player1}}" >{{this.Player1}}</a> + <a href="{{BaseUrl}}/history/{{this.Player2}}" >{{this.Player2}}</a> <strong>({{this.team1}})</strong> <strong style="color:red" >  vs  </strong><a href="{{BaseUrl}}/history/{{this.Player3}}" >{{this.Player3}}</a> + <a href="{{BaseUrl}}/history/{{this.Player4}}" >{{this.Player4}}</a> <strong>({{this.team2}})</strong></div>
                         <div>{{this.time}} </div>
+                        <div>{{this.duration}} </div>
+
 
                         <div class="row">
                             <div class="col">
-                        <a href="http://tsgd:9000/update/{{this._id}}" class="btn btn-outline-secondary">Update</a>
+                        <a href="{{BaseUrl}}/update/{{this._id}}" class="btn btn-outline-secondary">Update</a>
                             </div>
                             <div class="col">
-                                <a href="http://tsgd:9000/reinsert/{{this._id}}" class="btn btn-outline-secondary">reinsert</a>
+                                <a href="{{BaseUrl}}/reinsert/{{this._id}}" class="btn btn-outline-secondary">reinsert</a>
                             </div>
                         <form action="/delete" method="post">
                             <input name="id" value={{this._id}} hidden>
@@ -167,7 +206,8 @@
                 {{/each}}
             </ul>
 
-		 <a href="/creatematches"  >Generate Teams </a>
+
+            <a href="/creatematches"  >Generate Teams </a>
             <ul class="list-group" >
                 {{#each items}}
 
@@ -198,3 +238,11 @@
 
 </div>
 
+<script>
+    function run() {
+        const matchduration = document.getElementById("timerInfo").innerHTML;
+        document.getElementById('duration').value = matchduration;
+        console.log(matchduration)
+    }
+
+</script>
