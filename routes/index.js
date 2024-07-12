@@ -286,11 +286,17 @@ router.post('/charts',async function (req, res, next) {
     const teamstrich=[];
     const dates=[]
 
-
+    var d = new Date();
+    d.setMonth(d.getMonth() -3);
+    
     const Promise = playersdata.find({ }, async function (err, results) {
         for (const element of results) {
             let name2 = element.name;
             finalResults.push(name2);
+	    
+   	    const dates = await userdata.find({"time":{$gte: new Date(d)}})
+            console.log(dates)
+
 
             const khaledwon1 = await userdata.countDocuments({$and: [{$or: [{ Player2: name2 }, { Player1: name2 }]}, {$or: [{ $expr: { $gt: ['$team1', '$team2'] }}]}, { $expr: { $gt: ['$time', date] }}]});
             const khaledwon2 = await userdata.countDocuments({$and: [{$or: [{ Player3: name2 }, { Player4: name2 }]}, {$or: [{ $expr: { $gt: ['$team2', '$team1'] }}]}, { $expr: { $gt: ['$time', date] }}]});
