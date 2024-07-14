@@ -7,8 +7,8 @@ const inetract = require('interact.js');
 const mongoose = require("mongoose");
 const Handlebars = require("handlebars");
 const path = require("path");
-const BaseUrl = "http://localhost:9000";
-mongoose.connect('mongodb://localhost:27017/test1');
+const BaseUrl = "http://tsgd:9000";
+mongoose.connect('mongodb://tsgd:27017/tsgd');
 const Schema = mongoose.Schema;
 
 const userdataSchema = new Schema({
