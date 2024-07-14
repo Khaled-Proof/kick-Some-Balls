@@ -8,8 +8,8 @@
 </head>
 
 
-<a href="http://tsgd:9000/">
-    <img src="http://tsgd:9000/images/logo_white_150px.png" width="80" height="80"  >
+<a href="{{BaseUrl}}/">
+    <img src="{{BaseUrl}}/images/logo_white_150px.png" width="80" height="80">
 </a>
 <i style="color: #3dd5f3">Welcome to the {{title}}</i>
 <br>
@@ -17,174 +17,235 @@
 <br>
 
 <nav class="navbar navbar-dark bg-dark">
-    <button><a href="/register"  >register a Player</a></button>
-    <button><a href="/charts"  >show games charts</a></button>
-    <button><a href="/index"  >back</a></button>
+    <button><a href="/register">register a Player</a></button>
+    <button><a href="/charts">show games charts</a></button>
+    <button><a href="/index">back</a></button>
 
 </nav>
-
 
 
 <div id="container" style="width: 100%;" style="background-color:white;">
     <canvas id="canvas"></canvas>
 
 
-
 </div>
 <br>
-<h1 style="background-color: #ebebeb"> A Simple Stats Table </h1>
-<h2 style="background-color: #ebebeb"> click on the name to know more about the histroy of each Player's Games </h2>
-<table class="table table-bordered" style="background-color: #ebebeb">
+<<h1 style="background-color: #343a40;color: #ebebeb"> Generic stats </h1>
+<h6 style="background-color: #2d3034;color: #ebebeb"> click on the name to know more about the history of each Player's
+    Games </h6>
+<table class="table table-bordered" class="table table-bordered display stripe hover order-column"
+       style="background-color: #2d3034;color: #ebebeb">
+    <thead>
+    <tr>
+        <th>Players</th>
+        <th>Total Played</th>
+        <th>Won</th>
+        <th>Lost</th>
+        <th>Won %</th>
+        <th>Lost %</th>
+        <th>Striche</th>
+    </tr>
+    </thead>
+    <tbody>
+
+    <tr>
+        <td>
+            {{#each namearray}}
+                <strong><a href="{{BaseUrl}}/history/{{this}}">{{this}} <br>
+                    <hr>
+                </a></strong>
+            {{/each}}
+        </td>
+        <td>
+            {{#each total}}
+                <strong>{{this}} <br>
+                    <hr>
+                </strong>
+            {{/each}}
+        </td>
+
+        <td>
+            {{#each wonarray}}
+                <strong>{{this}} <br>
+                    <hr>
+                </strong>
+            {{/each}}
+        </td>
+        <td>
+            {{#each lostarray}}
+                <strong>{{this}} <br>
+                    <hr>
+                </strong>
+            {{/each}}
+        </td>
+        <td>
+            {{#each wper}}
+                <strong>{{this}} % <br>
+                    <hr>
+                </strong>
+            {{/each}}
+        </td>
+        <td>
+            {{#each lper}}
+                <strong>{{this}} % <br>
+                    <hr>
+                </strong>
+            {{/each}}
+        </td>
+        <td type="I">
+            {{#each st}}
+                <strong type="I">{{this}} <br>
+                    <hr>
+                </strong>
+            {{/each}}
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+
+<h2 style="background-color: #343a40;color: #ebebeb"> Stricher Board </h2>
+<table class="table table-bordered display stripe hover order-column"
+       style="background-color: #2d3034;color: #ebebeb">
     <tbody>
     <tr>
         <th scope="col">#</th>
-    {{#each namearray}}
-    <td><strong><a href="http://tsgd:9000/history/{{this}}">{{this}}</a></strong></td>
-    {{/each}}
-    </tr>
-    <tr>
-        <th scope="col">Total Played</th>
-        {{#each total}}
-            <td><strong>{{this}}</strong></td>
+        {{#each namearray}}
+            <td><strong><a href="{{BaseUrl}}/history/{{this}}">{{this}}</a></strong></td>
         {{/each}}
     </tr>
-
-    <tr>
-        <th scope="col">Won</th>
-        {{#each wonarray}}
-            <td><strong>{{this}}</strong></td>
-        {{/each}}
-    </tr>
-    <tr>
-        <th scope="col">Lost</th>
-        {{#each lostarray}}
-            <td><strong>{{this}}</strong></td>
-        {{/each}}
-    </tr>
-    <tr>
-        <th scope="col">Win percentage</th>
-        {{#each wper}}
-            <td><strong>{{this}} %</strong></td>
-        {{/each}}
-    </tr>
-
-    <tr>
-        <th scope="col">Lose percentage</th>
-        {{#each lper}}
-            <td><strong>{{this}} %</strong></td>
-        {{/each}}
-    </tr>
-
-
     <tr type="I">
         <th scope="col">Striche</th>
         {{#each st}}
             <td type="I"><strong type="I">{{this}} </strong></td>
         {{/each}}
+
     </tr>
     </tbody>
 </table>
+<table class="table table-bordered display stripe hover order-column"
+       style="background-color: #2d3034;color: #ebebeb">
 
-
-<br>
-<h1 style="background-color: #ebebeb"> A Simple Teams_Stats Table </h1>
-<table class="table table-bordered" style="background-color: #ebebeb">
     <tbody>
-
-    <tr>
-        <th scope="col">Teams</th>
-        {{#each pn2}}
-            <td><strong >{{this}}</a></strong></td>
-        {{/each}}
-    </tr>
-
-
-    <th scope="col">total played</th>
-    {{#each glw}}
-        <td><strong>{{this}}</a></strong></td>
+    <th scope="col"><h2>Teams Striche</h2></th>
+    {{#each stt}}
+        <tr>
+            <td><strong style="color: white">{{this}}</a></strong></td>
+        </tr>
     {{/each}}
-    </tr>
+    <br>
+    <table class="table table-bordered display stripe hover order-column"
+           style="background-color: #2d3034;color: #ebebeb">
+        <thead>
+        <tr>
+            <th>Teams</th>
+            <th>total played</th>
+            <th>Wins</th>
+            <th>Loses</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        <tr>
 
 
-    <th scope="col">Wins</th>
-    {{#each gwin}}
-        <td><strong style="color: green">{{this}}</a></strong></td>
-    {{/each}}
-    </tr>
+            <td>
+                {{#each pn2}}
+                    <strong>{{this}}<br>
+                        <hr>
+                        </a></strong>
+                {{/each}}
+            </td>
+            <td>
+                {{#each glw}}
+                    <strong>{{this}}<br>
+                        <hr>
+                        </a></strong>
+                {{/each}}
+            </td>
 
-    <th scope="col">Loses</th>
-    {{#each glos}}
-        <td><strong style="color: #c82333">{{this}}</a></strong></td>
-    {{/each}}
-    </tr>
+            <td>
+                {{#each gwin}}
+                    <strong style="color: green">{{this}}<br>
+                        <hr>
+                        </a></strong>
+                {{/each}}
+            </td>
+            <td>
+                {{#each glos}}
+                    <strong style="color: #c82333">{{this}}<br>
+                        <hr>
+                        </a></strong>
+                {{/each}}
+            </td>
+        </tr>
 
 
+        </tbody>
+    </table>
+    </div>
+    <br>
 
-    </tbody>
-</table>
-</div>
-<br>
+    <script>
+        const barChartData = {
+            labels: [{{#each namearray}}'{{this}}',{{/each}}],
+            datasets: [
 
-<script>
-    const barChartData = {
-        labels: [{{#each namearray}}'{{this}}',{{/each}}],
-        datasets: [
-
-            {
-                label: "Won",
-                yAxisID: 'bar-stack',
-                backgroundColor: "lightgreen",
-                borderColor: "green",
-                borderWidth: 1,
-                stack: 'now',
-                data: [{{wonarray}}]
-            },
-            {
-                label: "Lost",
-                yAxisID: "bar-stack",
-                backgroundColor: "pink",
-                borderColor: "red",
-                borderWidth: 1,
-                stack: 'now',
-                data: [{{lostarray}}]
-            },
-
-        ]
-    };
-
-    const chartOptions = {
-        responsive: true,
-        scales: {
-            yAxes: [
                 {
-                    id: "bar-stack",
-                    position: "left",
-                    stacked: true,
+                    label: "Won",
+                    yAxisID: 'bar-stack',
+                    backgroundColor: "lightgreen",
+                    borderColor: "green",
+                    borderWidth: 1,
+                    stack: 'now',
+                    data: [{{wonarray}}]
+                },
+                {
+                    label: "Lost",
+                    yAxisID: "bar-stack",
+                    backgroundColor: "pink",
+                    borderColor: "red",
+                    borderWidth: 1,
+                    stack: 'now',
+                    data: [{{lostarray}}]
+                },
+
+            ]
+        };
+
+        const chartOptions = {
+            responsive: true,
+            scales: {
+                yAxes: [
+                    {
+                        id: "bar-stack",
+                        position: "left",
+                        stacked: true,
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }],
+                x: {
                     ticks: {
-                        beginAtZero: true
-                    }
-                }],
-            x: {
-                ticks: {
-                    color: 'white', beginAtZero: true,
-                    font: {
-                        size: 18,
+                        color: 'white', beginAtZero: true,
+                        font: {
+                            size: 18,
+                        }
                     }
                 }
+
             }
-
         }
-    }
 
-    window.onload = function() {
-        const ctx = document.getElementById("canvas").getContext("2d");
-        window.myBar = new Chart(ctx, {
-            type: "bar",
-            data: barChartData,
-            options: chartOptions,
+        window.onload = function () {
+            const ctx = document.getElementById("canvas").getContext("2d");
+            window.myBar = new Chart(ctx, {
+                type: "bar",
+                data: barChartData,
+                options: chartOptions,
 
-        });
-    };
+            });
+        };
 
 
-</script>
+    </script>

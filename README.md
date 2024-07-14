@@ -31,6 +31,10 @@ Features:
 
 3. open the application on port 9000. http://localhost:9000
 
+4.to Update Package.json to the latest versions use:
+4.1 npm i -g npm-check-updates
+4.2ncu -u
+
 # Preview
 
 ![presention](https://user-images.githubusercontent.com/24300473/174416892-355f1196-0370-4042-84d8-39cfa06c6fcb.gif)
