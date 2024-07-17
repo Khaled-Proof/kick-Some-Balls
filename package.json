@@ -7,7 +7,8 @@
   },
   "dependencies": {
     "bluebird": "^3.7.2",
-    "chart.js": "^4.4.3",
+    "chart.js": "^3.9.1",
+    "chartjs-node-canvas": "^4.1.6",
     "cookie-parser": "~1.4.6",
     "debug": "~4.3.5",
     "express": "~4.19.2",
