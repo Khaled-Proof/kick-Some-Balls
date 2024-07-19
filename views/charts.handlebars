@@ -39,6 +39,7 @@
     <tr>
         <th>Players</th>
         <th>Total Played</th>
+        <th>Win/Loose Ratio</th>
         <th>Won</th>
         <th>Lost</th>
         <th>Won %</th>
@@ -63,7 +64,13 @@
                 </strong>
             {{/each}}
         </td>
-
+        <td>
+            {{#each wl}}
+                <strong>{{this}} <br>
+                    <hr>
+                </strong>
+            {{/each}}
+        </td>
         <td>
             {{#each wonarray}}
                 <strong>{{this}} <br>
